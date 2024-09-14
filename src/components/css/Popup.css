@@ -1,0 +1,190 @@
+.container-popup {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a0830e6;
+    z-index: 900;
+}
+
+.content-popup {
+    width: 92.5%;
+    max-width: 525px;
+    height: max-content;
+    max-height: 95vh;
+    background: var(--three);
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    background: linear-gradient(95.99deg, rgba(41,224,169,.7) 7.66%, rgba(95,117,242,.7) 41.15%, rgba(153,86,246,.7) 75.03%, rgba(226,84,255,.7) 98.16%);
+    z-index: 1;
+}
+
+.content-popup .form {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    background: var(--three);
+    overflow-y: scroll;
+    padding: 30px;
+}
+
+.content-popup .form .bar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 0px 25px 0px;
+}
+
+.content-popup .form .bar h1 {
+    font-size: 17.5px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    margin: 0px 8px 0px 0px;
+} .content-popup .form .bar h1 strong {
+    color: var(--two);
+    font-weight: 700;
+}
+
+.content-popup .form .bar .icon {
+    min-width: 28px;
+    min-height: 28px;
+    font-size: 28px;
+    padding: 4px;
+    background: var(--one);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+} .content-popup .form .bar .icon:hover {
+    background: var(--two);
+    color: var(--stoneOne);
+}
+
+
+.content-popup .form .input {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    margin: 10px 0px 20px 0px;
+}
+
+.content-popup .form .input input {
+    width: 100%;
+    height: 52.5px;
+    background: var(--four);
+    border: 1px solid var(--stoneSix);
+    padding: 0px 15px 0px 45px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--stoneEleven);
+} .content-popup .form .input input:focus {
+    border: 1px solid var(--stoneEleven);
+    box-shadow: 0px 1px 1px var(--stoneEleven);
+}
+
+.content-popup .form .input .icon {
+    font-size: 20px;
+    position: absolute;
+    left: 15px;
+}
+
+.content-popup .form .input select {
+    width: 100%;
+    height: 52.5px;
+    background: var(--four);
+    border: 1px solid var(--stoneSix);
+    padding: 0px 15px 0px 45px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--stoneEleven);
+} .content-popup .form .input select:focus {
+    border: 1px solid var(--stoneEleven);
+    box-shadow: 0px 1px 1px var(--stoneEleven);
+}
+
+
+.content-popup .form button {
+    width: 100%;
+    height: 52.5px;
+    border-radius: 10px;
+    background: var(--one);
+    border: 1px solid var(--one);
+    color: var(--stoneEleven);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all .1s ease-in-out;
+} .content-popup .form button:hover,
+.content-popup .form button:focus {
+    background: var(--two);
+    border: 1px solid var(--two);
+    box-shadow: 0px 2.5px 12.5px var(--two);
+    color: var(--stoneOne);
+}
+
+
+/* Md Erro */
+.content-popup .form .erro {
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--red);
+    border-radius: 10px;
+    margin: 20px 0px 0px 0px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--red);
+}
+
+.content-popup .form .erro .icon {
+    width: auto;
+    height: auto;
+    font-size: 25px;
+    padding: 0px;
+    margin: 0px 8px 0px 0px;
+}
+
+.content-popup .form .erro p {
+    font-size: 15px;
+}
+
+
+/* Md Success */
+.content-popup .form .success {
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--greenLight);
+    border-radius: 10px;
+    margin: 20px 0px 0px 0px;
+    padding: 12.5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--greenLight);
+}
+
+.content-popup .form .success .icon {
+    width: auto;
+    height: auto;
+    font-size: 22.5px;
+    padding: 0px;
+    margin: 0px 10px 0px 0px;
+}
+
+.content-popup .form .success p {
+    font-size: 15px;
+}
