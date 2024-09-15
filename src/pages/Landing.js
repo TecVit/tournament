@@ -5,7 +5,7 @@ import Logo from '../image/logo.png';
 import { FaGlobe } from 'react-icons/fa';
 
 import Popup from '../components/Popup';
-import { IoClose, IoPersonOutline, IoPhonePortraitOutline, IoSchoolOutline } from 'react-icons/io5';
+import { IoClose, IoLogoWhatsapp, IoPersonOutline, IoPhonePortraitOutline, IoSchoolOutline } from 'react-icons/io5';
 import { PiIdentificationBadge } from 'react-icons/pi';
 import { IoIosStar, IoMdInformationCircleOutline } from 'react-icons/io';
 import { fazerInscricao } from '../firebase/inscricao';
@@ -255,7 +255,7 @@ export default function Landing() {
                         </select>
                     </div>
                     <div className='input'>
-                        <IoPhonePortraitOutline className='icon' />
+                        <IoLogoWhatsapp className='icon' />
                         <input onChange={(e) => handleInputNumero(e.target.value)} value={inputNumero} placeholder='Seu número de Whatsapp' type='tel' />    
                     </div>
                     <div className='input'>
