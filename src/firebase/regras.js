@@ -8,17 +8,16 @@ const formatarNome = (valor) => {
     return valor;
 };
 
-const fazerInscricao = (game, nome, turma, telefone, ra) => {
-    const ano = new Date().getFullYear().toString();
+const coletarRegras = async (game) => {
     try {
-        const inscricaoDoc = firestore.collection(ano)
-        .doc('interclasse').collection(formatarNome(game)).doc(nome).set({
-            nome,
-            telefone,
-            ra,
-            turma,
-        });
-        return true;
+        const regrasDoc = await firestore.collection('regras')
+        .doc(game).get();
+        if (regrasDoc.exists) {
+            const data = regrasDoc.data();
+            let htmlString = data.html;
+            return htmlString;
+        }
+        return false;
     } catch (error) {
         console.log(error);
         return false;
@@ -26,4 +25,4 @@ const fazerInscricao = (game, nome, turma, telefone, ra) => {
 }
 
 
-export { fazerInscricao };
+export { coletarRegras };

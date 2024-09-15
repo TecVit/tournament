@@ -12,8 +12,11 @@ import { fazerInscricao } from '../firebase/inscricao';
 import { FaRegCircleCheck } from 'react-icons/fa6';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
+
+  const navigate = useNavigate();
 
   const handleInputNumero = (telefone) => {
     const formattedTelefone = telefone.replace(/\D/g, '');
@@ -30,24 +33,38 @@ export default function Landing() {
     setInputNumero(formattedString);
   };
 
+  const formatarNome = (valor) => {
+    valor = valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    valor = valor.replace(/[^a-zA-Z0-9\s]/g, '');
+    valor = valor.trim().replace(/\s+/g, '-');
+    valor = valor.toLowerCase();
+    return valor;
+};
+
   const games = [
     {
         name: "Minecraft",
         description: "Minecraft é um jogo de construção e exploração onde você cria e sobrevive em um mundo feito de blocos...",
         image: "https://seeklogo.com/images/M/minecraft-youtube-logo-448E10AC2B-seeklogo.com.png",
-        link: "https://www.minecraft.net/pt-br",
+        link: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe&hl=pt_BR",
     },
     {
         name: "Roblox",
-        description: "Roblox é uma plataforma de jogos online onde os usuários podem criar, compartilhar e jogar uma variedade de jogos feitos por outros jogadores...",
+        description: "Roblox é uma plataforma de jogos online onde os usuários podem jogar uma variedade de minijogos...",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3WNETJxexNhu4Qi8ETL63gH2P5F4xXr5Lfg&s",
-        link: "https://www.roblox.com/pt",
+        link: "https://play.google.com/store/apps/details?id=com.roblox.client&hl=pt_BR",
     },
     {
         name: "Free Fire",
         description: "Free Fire é um jogo battle royale para mobile onde 50 jogadores competem para ser o último sobrevivente. As partidas são rápidas e exigem estratégia...",
         image: "https://i.pinimg.com/736x/f1/9b/1d/f19b1d45e7c033e4039b9f4bd638e1a7.jpg",
-        link: "https://ff.garena.com/pt/",
+        link: "https://play.google.com/store/apps/details?id=com.dts.freefireth&hl=pt_BR",
+    },
+    {
+        name: "Brawl Stars",
+        description: "Brawl Stars é um jogo de batalha multiplayer onde equipes competem em diversos modos com personagens únicos, cada um com habilidades especiais...",
+        image: "https://upload.wikimedia.org/wikipedia/pt/a/a4/Brawl_Stars_iOS_%C3%ADcone.jpg",
+        link: "https://play.google.com/store/apps/details?id=com.supercell.brawlstars&hl=pt_BR",
     }
   ];
 
@@ -98,9 +115,16 @@ export default function Landing() {
         const fazendo = await fazerInscricao(inputGame, inputNome, inputTurma, inputNumero, inputRa);
         if (fazendo) {
             setMdSuccess('Inscrição feita com sucesso');
+            setInputGame('');
+            setInputNome('');
+            setInputTurma('');
+            setInputNumero('');
+            setInputRa('');
+            setMdSuccess('');
+            setMdErro('');
             setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+                setMdPopup(false);
+            }, 2500);
         }
     } catch (error) {
         console.log(error);
@@ -116,13 +140,13 @@ export default function Landing() {
             {/* Navbar */}
             <header className='container-navbar'>
                 <div className='content-navbar'>
-                    <img onClick={() => window.location.href = ""} className='logo' src={Logo} />
+                    <img onClick={() => window.location.href = "/"} className='logo' src={Logo} />
                     {!mdNavbar && (
                         <div className='links'>
-                            <a href='/#'>Início</a>
+                            <a href="/#">Início</a>
                             <a>Ao Vivo</a>
-                            <a>Informações</a>
-                            <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrição</button>
+                            <a href="/#regras">Regras</a>
+                            <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         </div>
                     )}
                     {mdNavbar ? (
@@ -134,10 +158,10 @@ export default function Landing() {
                 {mdNavbar && (
                     <div className='content-navbar-mobile'>
                         <div className='links'>
-                            <a href='/#'>Início</a>
+                            <a href="/#">Início</a>
                             <a>Ao Vivo</a>
-                            <a>Informações</a>
-                            <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrição</button>
+                            <a href="/#regras">Regras</a>
+                            <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         </div>
                     </div>
                 )}
@@ -147,7 +171,7 @@ export default function Landing() {
             <section className='content-landing'>
                 <div className='text'>
                     <h1>Bem-Vindo ao nosso Interclasse de <strong>Games</strong></h1>
-                    <p>As inscrições para o nosso interclasse de games estão oficialmente abertas! Junte-se a nós, forme sua equipe e prepare-se para competir nas modalidades mais empolgantes.</p>
+                    <p>As inscrições para o nosso interclasse de games estão oficialmente abertas! Junte-se a nós, forme sua equipe e prepare-se para competir nos jogos mais pedidos.</p>
                     <button className='btn-primary'>Quero Participar</button>
                     <button className='btn-secondary'>Saber Mais</button>
                 </div>
@@ -155,9 +179,9 @@ export default function Landing() {
 
             {/* Games / Inscrições */}
             <section id='inscricoes' className='container-games'>
-                <div className='fita'>
+                <div id='regras' className='fita'>
                     {[0, 1, 2, 3, 4, 5, 6].map((val, index) => (
-                        <div className='content'>
+                        <div key={index} className='content'>
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
@@ -176,7 +200,7 @@ export default function Landing() {
                         <div className='list'>
                             {games.length > 0 && (
                                 games.map((val, index) => (
-                                    <div className='game'>
+                                    <div key={index} className='game'>
                                         <img src={val.image} />
                                         <p>{val.description}</p>
                                         <div className='linha'></div>
@@ -186,6 +210,7 @@ export default function Landing() {
                                                 setInputGame(val.name);
                                                 setInfoInterclasse(val);
                                             }}>Inscrever-se</button>
+                                            <button onClick={() => window.location.href = `/regras/${formatarNome(val.name)}`}>Regras</button>
                                             <FaGlobe onClick={() => window.open(val.link)} className='icon' />
                                         </div>
                                     </div>
@@ -219,7 +244,7 @@ export default function Landing() {
                             <option>Selecione sua turma</option>
                             {turmas.length > 0 && (
                                 turmas.map((val, index) => (
-                                    <option value={val}>{val}</option>
+                                    <option key={index} value={val}>{val}</option>
                                 ))
                             )}
                         </select>

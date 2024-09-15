@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Pages
 import Landing from './pages/Landing';
+import Regras from './pages/Regras';
 
 // Erros
 import Error404 from './pages/errors/404';
@@ -38,6 +39,7 @@ const RouterApp = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/regras/:game" element={<Regras />} />
         
         <Route path="/*" element={<Error404 />} />
       </Routes>

@@ -1,0 +1,279 @@
+.container-regras {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-regras {
+    width: 100%;
+    height: calc(100vh + 75px);
+    max-height: 475px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+} .content-regras::before {
+    content: ''; /* Certifique-se de que o pseudo-elemento tem um conteúdo vazio */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: url('/src/image/background.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(1vw);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.content-regras .text {
+    width: 92.5%;
+    max-width: 1111px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0px 0px 0px;
+}
+
+.content-regras .text h1 {
+    width: 100%;
+    max-width: 500px;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 52px;
+    letter-spacing: 0.2px;
+    margin: 0px 0px 12px 0px;
+} .content-regras .text h1 strong {
+    color: var(--one);
+    font-weight: 900;
+}
+
+.content-regras .text p {
+    width: 100%;
+    max-width: 500px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.2px;
+    margin: 0px 0px 20px 0px;
+} .content-regras .text p strong {
+    color: var(--one);
+    font-weight: 900;
+}
+
+
+
+/* Games */
+.container-regras .container-games {
+    width: 100%;
+    height: auto;
+    background: var(--three);
+    background-image: linear-gradient(225deg, rgba(128, 0, 128, .15), rgba(128, 0, 128, 0)) !important;
+    margin: 0px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 50px 0px 75px 0px;
+    position: relative;
+}
+
+.container-regras .container-games .fita {
+    width: 100%;          
+    height: 75px;
+    background: var(--two);
+    color: var(--stoneOne);
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    position: absolute;
+    top: -75px;
+    left: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container-regras .container-games .fita .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    transition: all .1s ease-in-out;
+    animation: move 10s linear infinite;
+}
+
+.container-regras .container-games .fita .content p {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0px;
+    padding: 0px;
+    text-transform: uppercase;
+}
+
+.container-regras .container-games .fita .content .icon {
+    font-size: 20px;
+    margin: 0px 15px;
+}
+
+@keyframes move {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+}
+
+
+.container-regras .content-games {
+    width: 92.5%;
+    max-width: 1111px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container-regras .content-games .games {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.container-regras .content-games .games h1 {
+    width: auto;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 36px;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 0px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+} .container-regras .content-games .games li h1 strong {
+    color: var(--one);
+    font-weight: 800;
+}
+
+.container-regras .content-games .games h1 {
+    width: auto;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 36px;
+    letter-spacing: 0.1px;
+    margin: 25px 0px 10px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+} .container-regras .content-games .games li h1 strong {
+    color: var(--one);
+    font-weight: 800;
+}
+
+.container-regras .content-games .games li h1 .numero {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--stoneEleven);
+    color: var(--stoneOne);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px 15px 0px 0px;
+}
+
+.container-regras .content-games .games li p {
+    width: auto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 15px 0px;
+} .container-regras .content-games .games li p strong {
+    color: var(--one);
+    font-weight: 500;
+}
+
+
+/* Carregando */
+.carregando {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.carregando .loader {
+    width: 60px;
+    height: 60px;
+    padding: 14px;
+    margin: 0px 20px 0px 0px;
+}
+
+.carregando h1 {
+    width: auto;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 30px;
+    letter-spacing: 0.2px;
+    margin: 0px 0px;
+    color: var(--stoneEight);
+}
+
+
+
+@media (max-width: 650px) {
+    .container-regras .content-regras::before {
+        filter: blur(1.5vw);
+    }
+
+    .container-regras .content-regras .text h1 {
+        width: 100%;
+        font-size: 32px;
+        max-width: 400px;
+        line-height: unset;
+        text-align: center;
+        margin: 0px auto;
+    }
+    
+    .container-regras .content-regras .text p {
+        width: 100%;
+        font-size: 14px;
+        max-width: 400px;
+        line-height: 20px;
+        text-align: center;
+        margin: 0px auto;
+    }
+
+    .container-regras .content-games .games li h1 {
+        font-size: 20px;
+    } .container-regras .content-games .games li h1 .numero {
+        width: 32.5px;
+        height: 32.5px;
+        font-size: 19px;
+        margin: 0px 12px 0px 0px;
+    }
+    
+    .container-regras .content-games .games li p {
+        font-size: 15.5px;
+        line-height: 26px;
+    }
+    
+}
