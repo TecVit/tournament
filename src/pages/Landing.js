@@ -17,6 +17,14 @@ import { useNavigate } from 'react-router-dom';
 import { coletarRankings } from '../firebase/ranking';
 
 import { NotificationContainer, notifyError, notifySuccess } from '../toastifyServer';
+import Navbar from '../components/Navbar';
+
+
+// Images
+import minecraftImage from '../image/minecraft.png';
+import brawlImage from '../image/brawl.png';
+import freefireImage from '../image/freefire.png';
+import robloxImage from '../image/roblox.png';
 
 export default function Landing() {
 
@@ -43,31 +51,31 @@ export default function Landing() {
     valor = valor.trim().replace(/\s+/g, '-');
     valor = valor.toLowerCase();
     return valor;
-};
+  };
 
   const games = [
     {
         name: "Minecraft",
         description: "Minecraft é um jogo de construção e exploração onde você cria e sobrevive em um mundo feito de blocos...",
-        image: "https://seeklogo.com/images/M/minecraft-youtube-logo-448E10AC2B-seeklogo.com.png",
+        image: minecraftImage,
         link: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe&hl=pt_BR",
     },
     {
         name: "Roblox",
         description: "Roblox é uma plataforma de jogos online onde os usuários podem jogar uma variedade de minijogos...",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3WNETJxexNhu4Qi8ETL63gH2P5F4xXr5Lfg&s",
+        image: robloxImage,
         link: "https://play.google.com/store/apps/details?id=com.roblox.client&hl=pt_BR",
     },
     {
         name: "Free Fire",
         description: "Free Fire é um jogo battle royale para mobile onde 50 jogadores competem para ser o último sobrevivente. As partidas são rápidas e exigem estratégia...",
-        image: "https://i.pinimg.com/736x/f1/9b/1d/f19b1d45e7c033e4039b9f4bd638e1a7.jpg",
+        image: freefireImage,
         link: "https://play.google.com/store/apps/details?id=com.dts.freefireth&hl=pt_BR",
     },
     {
         name: "Brawl Stars",
         description: "Brawl Stars é um jogo de batalha multiplayer onde equipes competem em diversos modos com personagens únicos, cada um com habilidades especiais...",
-        image: "https://upload.wikimedia.org/wikipedia/pt/a/a4/Brawl_Stars_iOS_%C3%ADcone.jpg",
+        image: brawlImage,
         link: "https://play.google.com/store/apps/details?id=com.supercell.brawlstars&hl=pt_BR",
     }
   ];
@@ -91,8 +99,7 @@ export default function Landing() {
     "3ª Série C",
   ];
 
-  const [mdNavbar, setMdNavbar] = useState(false);
-
+  // Modais
   const [mdPopup, setMdPopup] = useState(false);
   const [mdErro, setMdErro] = useState(false);
   const [mdSuccess, setMdSuccess] = useState(false);
@@ -230,43 +237,14 @@ export default function Landing() {
             <NotificationContainer />
 
             {/* Navbar */}
-            <header className='container-navbar'>
-                <div className='content-navbar'>
-                    <img onClick={() => window.location.href = "/"} className='logo' src={Logo} />
-                    {!mdNavbar && (
-                        <div className='links'>
-                            <a href="/#">Início</a>
-                            <a href="/#regras">Regras</a>
-                            <a href='#ranking'>Ranking</a>
-                            <a href='#ao-vivo'>Ao Vivo</a>
-                            <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
-                        </div>
-                    )}
-                    {mdNavbar ? (
-                        <IoClose onClick={() => setMdNavbar(false)} className='btn btn-close' />
-                    ) : (
-                        <RxHamburgerMenu onClick={() => setMdNavbar(true)} className='btn btn-open' />
-                    )}
-                </div>
-                {mdNavbar && (
-                    <div className='content-navbar-mobile'>
-                        <div className='links'>
-                            <a href="/#">Início</a>
-                            <a href="/#regras">Regras</a>
-                            <a href='#ranking'>Ranking</a>
-                            <a href='#ao-vivo'>Ao Vivo</a>
-                            <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
-                        </div>
-                    </div>
-                )}
-            </header>
-            
+            <Navbar />
+
             {/* Principal */}
             <section className='content-landing'>
                 <div className='text'>
                     <h1>Bem-Vindo ao nosso Interclasse de <strong>Games</strong></h1>
                     <p>As inscrições para o nosso interclasse de games estão oficialmente abertas! Junte-se a nós, forme sua equipe e prepare-se para competir nos jogos mais pedidos.</p>
-                    <button className='btn-primary'>Quero Participar</button>
+                    <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Quero Participar</button>
                     <button className='btn-secondary'>Assistir Ao Vivo</button>
                 </div>
             </section>
@@ -295,7 +273,7 @@ export default function Landing() {
                             {games.length > 0 && (
                                 games.map((val, index) => (
                                     <div key={index} className='game'>
-                                        <img src={val.image} />
+                                        <img src={val.image} alt={val.name} />
                                         <p>{val.description}</p>
                                         <div className='linha'></div>
                                         <div className="flex">
@@ -412,8 +390,82 @@ export default function Landing() {
                 </div>
             </section>
 
+            {/* Chaveamento */}
+            <section className='container-chaveamento'>
+                <div className='content-chaveamento'>
+                    <div className='top'>
+                        <div className='grupo'>
+                            <div className='turma'>
+                                <p>3ª Série B</p>
+                            </div>
+                            <div className='turma'>
+                                <p>3ª Série C</p>
+                            </div>
+                        </div>
+                        <div className='grupo quartas'>
+                            <div className='turma'>
+                                <p> Semi-Final </p>
+                            </div>
+                        </div>
+                        <div className='grupo semi'>
+                            <div className='turma'>
+                                <p>Final</p>
+                            </div>
+                        </div>
+                        <div className='grupo quartas'>
+                            <div className='turma'>
+                                <p> Semi-Final </p>
+                            </div>
+                        </div>
+                        <div className='grupo'>
+                            <div className='turma'>
+                                <p>2ª Série A</p>
+                            </div>
+                            <div className='turma'>
+                                <p>9º Ano A</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='bottom'>
+                        <div className='grupo'>
+                            <div className='turma'>
+                                <p>2ª Série B</p>
+                            </div>
+                            <div className='turma'>
+                                <p>1ª Série B</p>
+                            </div>
+                        </div>
+                        <div className='grupo quartas'>
+                            <div className='turma'>
+                                <p> Semi-Final </p>
+                            </div>
+                        </div>
+                        <div className='grupo semi'>
+                            <div className='turma'>
+                                <p> Final </p>
+                            </div>
+                        </div>
+                        <div className='grupo quartas'>
+                            <div className='turma'>
+                                <p> Semi-Final </p>
+                            </div>
+                        </div>
+                        <div className='grupo'>
+                            <div className='turma'>
+                                <p>1ª Série A</p>
+                            </div>
+                            <div className='turma'>
+                                <p>3ª Série A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
             <div className='linha-rgb'></div>
         </main>
+
                             
 
         {/* Popup */}
@@ -426,11 +478,11 @@ export default function Landing() {
                     </div>
                     <div className='input'>
                         <IoPersonOutline className='icon'/>
-                        <input onChange={(e) => setInputNome(e.target.value)} value={inputNome} placeholder='Seu nome completo' type='text' />    
+                        <input onChange={(e) => setInputNome(e.target.value)} value={inputNome} placeholder='Nome do Player' type='text' />    
                     </div>
                     <div className='input'>
                         <IoMailOutline className='icon' />
-                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Seu melhor email' type='text' />    
+                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Email do Player' type='text' />    
                     </div>
                     <div className='input'>
                         <IoSchoolOutline className='icon'/>
