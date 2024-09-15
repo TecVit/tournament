@@ -205,7 +205,7 @@
     letter-spacing: 0.1px;
     margin: 0px 0px 15px 0px;
 } .container-regras .content-games .games li p strong {
-    color: var(--one);
+    color: var(--two);
     font-weight: 500;
 }
 

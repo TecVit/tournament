@@ -8,7 +8,14 @@ const formatarNome = (valor) => {
     return valor;
 };
 
-const fazerInscricao = async (game, nome, turma, email) => {
+function formatText(text) {
+    const trimmedText = text.replace(/\s+/g, ' ').trim();
+    const capitalizedText = trimmedText.replace(/\b\w/g, char => char.toUpperCase());
+    return capitalizedText;
+}
+
+const fazerInscricao = async (game, nomeNormal, turma, email) => {
+    const nome = formatText(nomeNormal);
     const ano = new Date().getFullYear().toString();
     try {
         const inscricaoDoc = await firestore.collection(`interclasse-${ano}`)

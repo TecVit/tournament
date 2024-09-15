@@ -110,7 +110,7 @@ export default function Landing() {
 
   const [paginaTurmas, setPaginaTurmas] = useState(1);
   const [paginaAlunos, setPaginaAlunos] = useState(1);
-  const itensPorPagina = 7;
+  const itensPorPagina = 8;
 
   const handleFazerInscricao = async () => {
     setCarregando(true);
@@ -398,7 +398,7 @@ export default function Landing() {
                             ))
                         ) : (
                             <div className='linha'>
-                                <div className='coluna'>
+                               <div className='coluna'>
                                     <p>Nenhum aluno acumulou pontos até o momento.</p>
                                 </div>
                             </div>
