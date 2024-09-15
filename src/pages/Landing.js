@@ -119,6 +119,7 @@ export default function Landing() {
   const [paginaAlunos, setPaginaAlunos] = useState(1);
   const itensPorPagina = 8;
 
+
   const handleFazerInscricao = async () => {
     setCarregando(true);
     try {
@@ -147,34 +148,6 @@ export default function Landing() {
         return false;
     }
   }
-
-//   const ranking = [
-//     {
-//         0: 'Pos',
-//         1: 'Turma',
-//         2: 'p',
-//         3: 'v',
-//         4: 'd',
-//         5: 'pts',
-//     },
-//     {
-//         0: '1',
-//         1: '1ª Série A',
-//         2: 4,
-//         3: 4,
-//         4: 0,
-//         5: 29,
-//     },
-//     {
-//         0: '2',
-//         1: '2ª Série B',
-//         2: 4,
-//         3: 3,
-//         4: 1,
-//         5: 22,
-//     }
-//   ];
-
 
   useEffect(() => {
     const coletandoRanking = async () => {

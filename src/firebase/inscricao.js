@@ -25,24 +25,6 @@ const fazerInscricao = async (game, nomeNormal, turma, email) => {
             turma,
         });
 
-        const turmaDoc = await firestore.collection(ano)
-        .doc('ranking').get();
-        if (turmaDoc.exists) {
-            let collectionsList = await turmaDoc.data().collections || {};
-            if (collectionsList[turma] != 1) {
-                collectionsList[turma] = 1;
-                await firestore.collection(ano)
-                .doc('ranking').update({
-                    collections: collectionsList,
-                });
-            }
-        } else {
-            await firestore.collection(ano)
-            .doc('ranking').set({
-                collections: {[turma]: 1},
-            });
-        }
-
         const rankingDoc = await firestore
         .collection(`ranking-${ano}`)
         .doc(turma)
