@@ -250,7 +250,7 @@
         max-width: 400px;
         line-height: unset;
         text-align: center;
-        margin: 0px auto;
+        margin: 0px auto 12px auto;
     }
     
     .container-regras .content-regras .text p {
@@ -260,6 +260,10 @@
         line-height: 20px;
         text-align: center;
         margin: 0px auto;
+    }
+
+    .container-games .content-games {
+        width: 90%;
     }
 
     .container-regras .content-games .games li h1 {
@@ -273,7 +277,7 @@
     
     .container-regras .content-games .games li p {
         font-size: 15.5px;
-        line-height: 26px;
+        line-height: 28px;
     }
     
 }
