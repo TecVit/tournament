@@ -379,7 +379,7 @@ export default function Landing() {
                     </div>
                     <div className='input'>
                         <IoMailOutline className='icon' />
-                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Seu melhor email' type='tel' />    
+                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Seu melhor email' type='text' />    
                     </div>
                     <div className='input'>
                         <IoSchoolOutline className='icon'/>
