@@ -357,7 +357,7 @@ export default function Landing() {
                     </div>
                     <div className='pagination'>
                         <button onClick={() => setPaginaAlunos(paginaAlunos > 1 ? paginaAlunos - 1 : 1)}>Anterior</button>
-                        <span>Página {paginaAlunos} de {Math.ceil(rankingAlunos.length / itensPorPagina)}</span>
+                        <p>Página {paginaAlunos} de {Math.ceil(rankingAlunos.length / itensPorPagina)}</p>
                         <button onClick={() => setPaginaAlunos(paginaAlunos < Math.ceil(rankingAlunos.length / itensPorPagina) ? paginaAlunos + 1 : paginaAlunos)}>Próxima</button>
                     </div>
                 </div>
@@ -366,69 +366,73 @@ export default function Landing() {
             {/* Chaveamento */}
             <section className='container-chaveamento'>
                 <div className='content-chaveamento'>
+                    <h1>Chaveamento do <strong>Free Fire</strong></h1>
+                    <p>Acompanhe o chaveamento atualizado do <strong>Free Fire</strong> e veja quais equipes estão avançando nas rodadas.</p>
+                    <div className='chaves'>
                     <div className='top'>
-                        <div className='grupo'>
-                            <div className='turma'>
-                                <p>3ª Série B</p>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>3ª Série B</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>3ª Série C</p>
+                                </div>
                             </div>
-                            <div className='turma'>
-                                <p>3ª Série C</p>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='grupo quartas'>
-                            <div className='turma'>
-                                <p> Semi-Final </p>
+                            <div className='grupo semi'>
+                                <div className='turma'>
+                                    <p>Final</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='grupo semi'>
-                            <div className='turma'>
-                                <p>Final</p>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='grupo quartas'>
-                            <div className='turma'>
-                                <p> Semi-Final </p>
-                            </div>
-                        </div>
-                        <div className='grupo'>
-                            <div className='turma'>
-                                <p>2ª Série A</p>
-                            </div>
-                            <div className='turma'>
-                                <p>9º Ano A</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bottom'>
-                        <div className='grupo'>
-                            <div className='turma'>
-                                <p>2ª Série B</p>
-                            </div>
-                            <div className='turma'>
-                                <p>1ª Série B</p>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>2ª Série A</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>9º Ano A</p>
+                                </div>
                             </div>
                         </div>
-                        <div className='grupo quartas'>
-                            <div className='turma'>
-                                <p> Semi-Final </p>
+                        <div className='bottom'>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>2ª Série B</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>1ª Série B</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='grupo semi'>
-                            <div className='turma'>
-                                <p> Final </p>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='grupo quartas'>
-                            <div className='turma'>
-                                <p> Semi-Final </p>
+                            <div className='grupo semi'>
+                                <div className='turma'>
+                                    <p> Final </p>
+                                </div>
                             </div>
-                        </div>
-                        <div className='grupo'>
-                            <div className='turma'>
-                                <p>1ª Série A</p>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
                             </div>
-                            <div className='turma'>
-                                <p>3ª Série A</p>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>1ª Série A</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>3ª Série A</p>
+                                </div>
                             </div>
                         </div>
                     </div>

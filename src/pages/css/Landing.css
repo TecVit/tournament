@@ -419,10 +419,12 @@
 }
 
 .container-landing .content-ranking .pagination p {
+    width: max-content;
     font-size: 16px;
     font-weight: 600;
     margin: 0px;
-    padding: 0px;
+    padding: 0px 12.5px;
+    text-align: center;
 }
 
 .container-landing .content-ranking .pagination button {
@@ -451,27 +453,57 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 25px 0px 50px 0px;
 }
 
 .container-landing .content-chaveamento {
-    width: 100%;
+    width: 92.5%;
     max-width: 1111px;
     height: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     position: relative;
     margin: 50px 0px;
 }
 
-.container-landing .content-chaveamento .top {
+.container-landing .content-chaveamento h1 {
+    width: auto;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 36px;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 10px 0px;
+} .container-landing .content-chaveamento h1 strong {
+    color: var(--two);
+    font-weight: 800;
+}
+
+
+.container-landing .content-chaveamento p {
+    width: auto;
+    max-width: 500px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 12px 0px;
+}
+
+.container-landing .content-chaveamento .chaves {
     width: 100%;
+    height: auto;
+    margin: 25px 0px;
+    overflow-x: scroll;
+}
+
+.container-landing .content-chaveamento .top {
+    width: max-content;
     height: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 30px 0px;
+    margin: 0px 0px 65px 0px;
 }
 
 .container-landing .content-chaveamento .top .grupo {
@@ -479,11 +511,11 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    margin: 0px 20px;
+    margin: 0px 0px;
 }
 
 .container-landing .content-chaveamento .top .grupo.quartas {
-    margin: 35px 0px 0px 0px;
+    margin: 35px 20px 0px 20px;
 }
 
 .container-landing .content-chaveamento .top .grupo.semi {
@@ -493,13 +525,13 @@
 
 
 .container-landing .content-chaveamento .bottom {
-    width: 100%;
+    width: max-content;
     height: auto;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    margin: 30px 0px;
+    margin: 65px 0px 0px 0px;
 }
 
 .container-landing .content-chaveamento .bottom .grupo {
@@ -507,11 +539,11 @@
     height: max-content;
     display: flex;
     flex-direction: column;
-    margin: 0px 20px;
+    margin: 0px 0px;
 }
 
 .container-landing .content-chaveamento .bottom .grupo.quartas {
-    margin: 35px 0px 0px 0px;
+    margin: 35px 20px 0px 20px;
 }
 
 .container-landing .content-chaveamento .bottom .grupo.semi {
@@ -520,11 +552,12 @@
 }
 
 .container-landing .content-chaveamento .turma {
-    width: 115px;
+    width: max-content;
     height: 50px;
     background: var(--stoneEleven);
     border-left: 5px solid var(--two);
     margin: 15px 0px 0px 0px;
+    padding: 0px 12.5px;
     color: var(--four);
     display: flex;
     align-items: center;
