@@ -8,22 +8,94 @@ const formatarNome = (valor) => {
     return valor;
 };
 
-const fazerInscricao = (game, nome, turma, telefone, ra) => {
+const fazerInscricao = async (game, nome, turma, email, ra) => {
     const ano = new Date().getFullYear().toString();
     try {
-        const inscricaoDoc = firestore.collection(ano)
-        .doc('interclasse').collection(formatarNome(game)).doc(nome).set({
+        const inscricaoDoc = await firestore.collection(`interclasse-${ano}`)
+        .doc(formatarNome(game)).collection('alunos').doc(nome).set({
             nome,
-            telefone,
+            email,
             ra,
             turma,
         });
+
+        const turmaDoc = await firestore.collection(ano)
+        .doc('ranking').get();
+        if (turmaDoc.exists) {
+            let collectionsList = await turmaDoc.data().collections || {};
+            if (collectionsList[turma] != 1) {
+                collectionsList[turma] = 1;
+                await firestore.collection(ano)
+                .doc('ranking').update({
+                    collections: collectionsList,
+                });
+            }
+        } else {
+            await firestore.collection(ano)
+            .doc('ranking').set({
+                collections: {[turma]: 1},
+            });
+        }
+
+        const rankingDoc = await firestore
+        .collection(`ranking-${ano}`)
+        .doc(turma)
+        .get();
+
+        if (rankingDoc.exists) {
+            let alunos = rankingDoc.data().alunos || [];
+            let alunoIndex = alunos.findIndex(aluno => aluno[1] === nome);
+
+            if (alunoIndex !== -1) {
+                alunos[alunoIndex] = {
+                    ...alunos[alunoIndex],
+                    0: null,
+                    1: nome,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
+                    //[formatarNome(game)]: true,
+                };
+            } else {
+                alunos.push({
+                    0: null,
+                    1: nome,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
+                    //[formatarNome(game)]: true,
+                });
+            }
+
+            await firestore
+            .collection(`ranking-${ano}`)
+            .doc(turma)
+            .update({ alunos });
+        } else {
+            await firestore
+            .collection(`ranking-${ano}`)
+            .doc(turma).set({
+                alunos: [
+                    {
+                        0: null,
+                        1: nome,
+                        2: 0,
+                        3: 0,
+                        4: 0,
+                        5: 0,
+                        //[formatarNome(game)]: true,
+                    },
+                ],
+            });
+        }
+
         return true;
     } catch (error) {
         console.log(error);
         return false;
     }
 }
-
 
 export { fazerInscricao };

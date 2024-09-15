@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/Landing.css';
 
 import Logo from '../image/logo.png';
 import { FaGlobe } from 'react-icons/fa';
 
 import Popup from '../components/Popup';
-import { IoClose, IoLogoWhatsapp, IoPersonOutline, IoPhonePortraitOutline, IoSchoolOutline } from 'react-icons/io5';
+import { IoClose, IoLogoWhatsapp, IoMail, IoMailOutline, IoPersonOutline, IoPhonePortraitOutline, IoSchoolOutline } from 'react-icons/io5';
 import { PiIdentificationBadge } from 'react-icons/pi';
 import { IoIosStar, IoMdInformationCircleOutline } from 'react-icons/io';
 import { fazerInscricao } from '../firebase/inscricao';
@@ -14,13 +14,15 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
+import { coletarRankings } from '../firebase/ranking';
+
 import { NotificationContainer, notifyError, notifySuccess } from '../toastifyServer';
 
 export default function Landing() {
 
   const navigate = useNavigate();
 
-  const handleInputNumero = (telefone) => {
+  /*const handleInputNumero = (telefone) => {
     const formattedTelefone = telefone.replace(/\D/g, '');
     let formattedString = '';
     if (formattedTelefone.length > 10) {
@@ -33,7 +35,7 @@ export default function Landing() {
         formattedString = `(${formattedTelefone}`;
     }
     setInputNumero(formattedString);
-  };
+  };*/
 
   const formatarNome = (valor) => {
     valor = valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -89,7 +91,6 @@ export default function Landing() {
     "3ª Série C",
   ];
 
-
   const [mdNavbar, setMdNavbar] = useState(false);
 
   const [mdPopup, setMdPopup] = useState(false);
@@ -98,37 +99,39 @@ export default function Landing() {
   const [carregando, setCarregando] = useState(false);
   const [infoInterclasse, setInfoInterclasse] = useState({});
 
+  const [rankingTurmas, setRankingTurmas] = useState([]);
+  const [rankingAlunos, setRankingAlunos] = useState([]);
+
   // Inputs
   const [inputGame, setInputGame] = useState('');
   const [inputNome, setInputNome] = useState('');
   const [inputTurma, setInputTurma] = useState('');
-  const [inputNumero, setInputNumero] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
   const [inputRa, setInputRa] = useState('');
 
   const handleFazerInscricao = async () => {
     setCarregando(true);
     try {
-        console.log(inputNumero.length);
-        if (!inputGame || !inputNome || !inputTurma || !inputNumero || inputNumero && inputNumero.length < 15 || !inputRa) {
+        if (!inputGame || !inputNome || !inputTurma || !inputEmail || !inputRa) {
             notifyError('Complete as informações corretamente');
             setMdErro('Complete as informações corretamente');
             return;
         }
         setMdErro(false);
-        const fazendo = await fazerInscricao(inputGame, inputNome, inputTurma, inputNumero, inputRa);
+        const fazendo = await fazerInscricao(inputGame, inputNome, inputTurma, inputEmail, inputRa);
         if (fazendo) {
             notifySuccess('Inscrição feita com sucesso');
             setMdSuccess('Inscrição feita com sucesso');
             setInputGame('');
             setInputNome('');
             setInputTurma('');
-            setInputNumero('');
+            setInputEmail('');
             setInputRa('');
             setMdErro('');
             setTimeout(() => {
                 setMdPopup(false);
                 setMdSuccess('');
-            }, 3750);
+            }, 3850);
         }
     } catch (error) {
         console.log(error);
@@ -136,6 +139,63 @@ export default function Landing() {
     }
   }
 
+//   const ranking = [
+//     {
+//         0: 'Pos',
+//         1: 'Turma',
+//         2: 'p',
+//         3: 'v',
+//         4: 'd',
+//         5: 'pts',
+//     },
+//     {
+//         0: '1',
+//         1: '1ª Série A',
+//         2: 4,
+//         3: 4,
+//         4: 0,
+//         5: 29,
+//     },
+//     {
+//         0: '2',
+//         1: '2ª Série B',
+//         2: 4,
+//         3: 3,
+//         4: 1,
+//         5: 22,
+//     }
+//   ];
+
+
+  useEffect(() => {
+    const coletandoRanking = async () => {
+      setCarregando(true);
+      try {
+        const { rankingTurmasList, rankingAlunosList } = await coletarRankings() || {};
+        if (Object.keys(rankingTurmasList).length > 0) {
+          setRankingTurmas(rankingTurmasList);
+        }
+        if (Object.keys(rankingAlunosList).length > 0) {
+            setRankingAlunos(rankingAlunosList);
+        }
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      } finally {
+        setCarregando(false);
+      }
+    };
+  
+    coletandoRanking();
+  
+    const intervalId = setInterval(() => {
+      coletandoRanking();
+    }, 60000); // 60.000 ms = 1 minuto
+  
+    return () => clearInterval(intervalId);
+  }, []);
+  
 
   return (
     <>
@@ -149,8 +209,9 @@ export default function Landing() {
                     {!mdNavbar && (
                         <div className='links'>
                             <a href="/#">Início</a>
-                            <a>Ao Vivo</a>
                             <a href="/#regras">Regras</a>
+                            <a href='#ranking'>Ranking</a>
+                            <a href='#ao-vivo'>Ao Vivo</a>
                             <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         </div>
                     )}
@@ -164,8 +225,9 @@ export default function Landing() {
                     <div className='content-navbar-mobile'>
                         <div className='links'>
                             <a href="/#">Início</a>
-                            <a>Ao Vivo</a>
                             <a href="/#regras">Regras</a>
+                            <a href='#ranking'>Ranking</a>
+                            <a href='#ao-vivo'>Ao Vivo</a>
                             <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         </div>
                     </div>
@@ -178,7 +240,7 @@ export default function Landing() {
                     <h1>Bem-Vindo ao nosso Interclasse de <strong>Games</strong></h1>
                     <p>As inscrições para o nosso interclasse de games estão oficialmente abertas! Junte-se a nós, forme sua equipe e prepare-se para competir nos jogos mais pedidos.</p>
                     <button className='btn-primary'>Quero Participar</button>
-                    <button className='btn-secondary'>Saber Mais</button>
+                    <button className='btn-secondary'>Assistir Ao Vivo</button>
                 </div>
             </section>
 
@@ -227,6 +289,78 @@ export default function Landing() {
                 </div>
             </section>
 
+            {/* Ranking das Turmas */}
+            <section id='ranking' className='container-ranking'>
+                <div className='content-ranking'>
+                    <h1>Ranking <strong>Ao Vivo</strong> das Turmas</h1>
+                    <p>Veja o ranking ao vivo das turmas e descubra quais são os jogos mais populares e bem avaliados no momento!</p>    
+                    <div className='tabela'>
+                        {rankingTurmas.length > 0 ? (
+                            rankingTurmas.map((obj, i) => (
+                                <div key={i} className={`linha ${i === 0 && 'one'}`}>
+                                    {Object.keys(obj).map((key, j) => {
+                                        if (j === 0 && i !== 0 && obj[key] === null) {
+                                            return (
+                                                <div key={j} className='coluna'>
+                                                    <p>{i}</p>
+                                                </div>
+                                            )
+                                        }
+                                        return (
+                                            <div key={j} className='coluna'>
+                                                <p>{obj[key]}</p>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            ))
+                        ) : (
+                            <div className='linha'>
+                                <div className='coluna'>
+                                    <p>Nenhuma turma acumulou pontos até o momento.</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </section>
+
+            {/* Ranking dos Alunos */}
+            <section id='ranking' className='container-ranking'>
+                <div className='content-ranking'>
+                    <h1>Ranking <strong>Ao Vivo</strong> dos Alunos</h1>
+                    <p>Confira a classificação atualizada em tempo real de cada aluno que está se destacando nos jogos mais pedidos.</p>
+                    <div className='tabela'>
+                        {rankingAlunos.length > 0 ? (
+                            rankingAlunos.map((obj, i) => (
+                                <div key={i} className={`linha ${i === 0 && 'one'}`}>
+                                    {Object.keys(obj).map((key, j) => {
+                                        if (j === 0 && i !== 0 && obj[key] === null) {
+                                            return (
+                                                <div key={j} className='coluna'>
+                                                    <p>{i}</p>
+                                                </div>
+                                            )
+                                        }
+                                        return (
+                                            <div key={j} className='coluna'>
+                                                <p>{obj[key]}</p>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            ))
+                        ) : (
+                            <div className='linha'>
+                                <div className='coluna'>
+                                    <p>Nenhum aluno acumulou pontos até o momento.</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </section>
+
             <div className='linha-rgb'></div>
         </main>
                             
@@ -244,6 +378,10 @@ export default function Landing() {
                         <input onChange={(e) => setInputNome(e.target.value)} value={inputNome} placeholder='Seu nome completo' type='text' />    
                     </div>
                     <div className='input'>
+                        <IoMailOutline className='icon' />
+                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Seu melhor email' type='tel' />    
+                    </div>
+                    <div className='input'>
                         <IoSchoolOutline className='icon'/>
                         <select onChange={(e) => setInputTurma(e.target.value)}>
                             <option>Selecione sua turma</option>
@@ -253,10 +391,6 @@ export default function Landing() {
                                 ))
                             )}
                         </select>
-                    </div>
-                    <div className='input'>
-                        <IoLogoWhatsapp className='icon' />
-                        <input onChange={(e) => handleInputNumero(e.target.value)} value={inputNumero} placeholder='Seu número de Whatsapp' type='tel' />    
                     </div>
                     <div className='input'>
                         <PiIdentificationBadge className='icon' />
