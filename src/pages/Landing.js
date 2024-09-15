@@ -14,6 +14,8 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
+import { NotificationContainer, notifyError, notifySuccess } from '../toastifyServer';
+
 export default function Landing() {
 
   const navigate = useNavigate();
@@ -108,23 +110,25 @@ export default function Landing() {
     try {
         console.log(inputNumero.length);
         if (!inputGame || !inputNome || !inputTurma || !inputNumero || inputNumero && inputNumero.length < 15 || !inputRa) {
+            notifyError('Complete as informações corretamente');
             setMdErro('Complete as informações corretamente');
             return;
         }
         setMdErro(false);
         const fazendo = await fazerInscricao(inputGame, inputNome, inputTurma, inputNumero, inputRa);
         if (fazendo) {
+            notifySuccess('Inscrição feita com sucesso');
             setMdSuccess('Inscrição feita com sucesso');
             setInputGame('');
             setInputNome('');
             setInputTurma('');
             setInputNumero('');
             setInputRa('');
-            setMdSuccess('');
             setMdErro('');
             setTimeout(() => {
                 setMdPopup(false);
-            }, 2500);
+                setMdSuccess('');
+            }, 3750);
         }
     } catch (error) {
         console.log(error);
@@ -136,6 +140,7 @@ export default function Landing() {
   return (
     <>
         <main className='container-landing'>
+            <NotificationContainer />
 
             {/* Navbar */}
             <header className='container-navbar'>
@@ -185,11 +190,11 @@ export default function Landing() {
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
-                            <p>Minecraft - dia 16 de setembro</p>
+                            <p>Minecraft - dia X de setembro</p>
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
-                            <p>Free Fire - dia 18 de setembro</p>
+                            <p>Free Fire - dia X de setembro</p>
                         </div>
                     ))}
                 </div>
