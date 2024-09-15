@@ -260,7 +260,7 @@ export default function Landing() {
                     </div>
                     <div className='input'>
                         <PiIdentificationBadge className='icon' />
-                        <input onChange={(e) => setInputRa(e.target.value)} value={inputRa} maxLength={16} placeholder='Seu registro de Aluno (RA)' type='text' />    
+                        <input onChange={(e) => setInputRa(e.target.value)} value={inputRa} maxLength={16} placeholder='Seu RA' type='text' />    
                     </div>
                     <button onClick={handleFazerInscricao}>Garantir minha Vaga</button>
                     {mdErro && (
