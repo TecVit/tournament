@@ -107,18 +107,21 @@ export default function Landing() {
   const [inputNome, setInputNome] = useState('');
   const [inputTurma, setInputTurma] = useState('');
   const [inputEmail, setInputEmail] = useState('');
-  const [inputRa, setInputRa] = useState('');
+
+  const [paginaTurmas, setPaginaTurmas] = useState(1);
+  const [paginaAlunos, setPaginaAlunos] = useState(1);
+  const itensPorPagina = 7;
 
   const handleFazerInscricao = async () => {
     setCarregando(true);
     try {
-        if (!inputGame || !inputNome || !inputTurma || !inputEmail || !inputRa) {
+        if (!inputGame || !inputNome || !inputTurma || !inputEmail) {
             notifyError('Complete as informações corretamente');
             setMdErro('Complete as informações corretamente');
             return;
         }
         setMdErro(false);
-        const fazendo = await fazerInscricao(inputGame, inputNome, inputTurma, inputEmail, inputRa);
+        const fazendo = await fazerInscricao(inputGame, inputNome, inputTurma, inputEmail);
         if (fazendo) {
             notifySuccess('Inscrição feita com sucesso');
             setMdSuccess('Inscrição feita com sucesso');
@@ -126,7 +129,6 @@ export default function Landing() {
             setInputNome('');
             setInputTurma('');
             setInputEmail('');
-            setInputRa('');
             setMdErro('');
             setTimeout(() => {
                 setMdPopup(false);
@@ -196,6 +198,31 @@ export default function Landing() {
     return () => clearInterval(intervalId);
   }, []);
   
+  const indexOfLastItemTurmas = paginaTurmas * itensPorPagina;
+  const indexOfFirstItemTurmas = indexOfLastItemTurmas - itensPorPagina;
+  const currentItemsTurmas = rankingTurmas.slice(indexOfFirstItemTurmas, indexOfLastItemTurmas);
+
+  const indexOfLastItemAlunos = paginaAlunos * itensPorPagina;
+  const indexOfFirstItemAlunos = indexOfLastItemAlunos - itensPorPagina;
+  const currentItemsAlunos = rankingAlunos.slice(indexOfFirstItemAlunos, indexOfLastItemAlunos);
+
+  const topTurmas = {
+    0: "Pos",
+    1: "Turma",
+    2: "P",
+    3: "V",
+    4: "D",
+    5: "PTS",
+  };
+  
+  const topAlunos = {
+    0: "Pos",
+    1: "Aluno",
+    2: "P",
+    3: "V",
+    4: "D",
+    5: "PTS",
+  }
 
   return (
     <>
@@ -295,14 +322,21 @@ export default function Landing() {
                     <h1>Ranking <strong>Ao Vivo</strong> das Turmas</h1>
                     <p>Veja o ranking ao vivo das turmas e descubra quais são os jogos mais populares e bem avaliados no momento!</p>    
                     <div className='tabela'>
-                        {rankingTurmas.length > 0 ? (
-                            rankingTurmas.map((obj, i) => (
-                                <div key={i} className={`linha ${i === 0 && 'one'}`}>
+                        <div className='linha one'>
+                            {Object.keys(topTurmas).map((key, i) => (
+                                <div key={i} className='coluna'>
+                                    <p>{topTurmas[key]}</p>
+                                </div>
+                            ))}
+                        </div>
+                        {currentItemsTurmas.length > 0 ? (
+                            currentItemsTurmas.map((obj, i) => (
+                                <div key={i} className="linha">
                                     {Object.keys(obj).map((key, j) => {
-                                        if (j === 0 && i !== 0 && obj[key] === null) {
+                                        if (j === 0 && obj[key] === null) {
                                             return (
                                                 <div key={j} className='coluna'>
-                                                    <p>{i}</p>
+                                                    <p>{i+1}</p>
                                                 </div>
                                             )
                                         }
@@ -322,6 +356,11 @@ export default function Landing() {
                             </div>
                         )}
                     </div>
+                    <div className='pagination'>
+                        <button onClick={() => setPaginaTurmas(paginaTurmas > 1 ? paginaTurmas - 1 : 1)}>Anterior</button>
+                        <p>Página {paginaTurmas} de {Math.ceil(rankingTurmas.length / itensPorPagina)}</p>
+                        <button onClick={() => setPaginaTurmas(paginaTurmas < Math.ceil(rankingTurmas.length / itensPorPagina) ? paginaTurmas + 1 : paginaTurmas)}>Próxima</button>
+                    </div>
                 </div>
             </section>
 
@@ -331,14 +370,21 @@ export default function Landing() {
                     <h1>Ranking <strong>Ao Vivo</strong> dos Alunos</h1>
                     <p>Confira a classificação atualizada em tempo real de cada aluno que está se destacando nos jogos mais pedidos.</p>
                     <div className='tabela'>
-                        {rankingAlunos.length > 0 ? (
-                            rankingAlunos.map((obj, i) => (
-                                <div key={i} className={`linha ${i === 0 && 'one'}`}>
+                        <div className='linha one'>
+                            {Object.keys(topAlunos).map((key, i) => (
+                                <div key={i} className='coluna'>
+                                    <p>{topAlunos[key]}</p>
+                                </div>
+                            ))}
+                        </div>
+                        {currentItemsAlunos.length > 0 ? (
+                            currentItemsAlunos.map((obj, i) => (
+                                <div key={i} className="linha">
                                     {Object.keys(obj).map((key, j) => {
-                                        if (j === 0 && i !== 0 && obj[key] === null) {
+                                        if (j === 0 && obj[key] === null) {
                                             return (
                                                 <div key={j} className='coluna'>
-                                                    <p>{i}</p>
+                                                    <p>{i+1}</p>
                                                 </div>
                                             )
                                         }
@@ -357,6 +403,11 @@ export default function Landing() {
                                 </div>
                             </div>
                         )}
+                    </div>
+                    <div className='pagination'>
+                        <button onClick={() => setPaginaAlunos(paginaAlunos > 1 ? paginaAlunos - 1 : 1)}>Anterior</button>
+                        <span>Página {paginaAlunos} de {Math.ceil(rankingAlunos.length / itensPorPagina)}</span>
+                        <button onClick={() => setPaginaAlunos(paginaAlunos < Math.ceil(rankingAlunos.length / itensPorPagina) ? paginaAlunos + 1 : paginaAlunos)}>Próxima</button>
                     </div>
                 </div>
             </section>
@@ -391,10 +442,6 @@ export default function Landing() {
                                 ))
                             )}
                         </select>
-                    </div>
-                    <div className='input'>
-                        <PiIdentificationBadge className='icon' />
-                        <input onChange={(e) => setInputRa(e.target.value)} value={inputRa} maxLength={16} placeholder='Seu RA' type='text' />    
                     </div>
                     <button onClick={handleFazerInscricao}>Garantir minha Vaga</button>
                     {mdErro && (

@@ -11,26 +11,8 @@ const formatarNome = (valor) => {
 const coletarRankings = async () => {
     const ano = new Date().getFullYear().toString();
     try {
-        let rankingTurmasList = [
-            {
-                0: 'Pos',
-                1: 'Turma',
-                2: 'p',
-                3: 'v',
-                4: 'd',
-                5: 'pts',
-            }
-        ];
-        let rankingAlunosList = [
-            {
-                0: 'Pos',
-                1: 'Aluno',
-                2: 'p',
-                3: 'v',
-                4: 'd',
-                5: 'pts',
-            }
-        ];
+        let rankingTurmasList = [];
+        let rankingAlunosList = [];
         const turmasDoc = await firestore.collection(`ranking-${ano}`).get();
         if (!turmasDoc.empty) {
             let turmasList = {};

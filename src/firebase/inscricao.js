@@ -8,14 +8,13 @@ const formatarNome = (valor) => {
     return valor;
 };
 
-const fazerInscricao = async (game, nome, turma, email, ra) => {
+const fazerInscricao = async (game, nome, turma, email) => {
     const ano = new Date().getFullYear().toString();
     try {
         const inscricaoDoc = await firestore.collection(`interclasse-${ano}`)
         .doc(formatarNome(game)).collection('alunos').doc(nome).set({
             nome,
             email,
-            ra,
             turma,
         });
 
