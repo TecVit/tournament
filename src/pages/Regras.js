@@ -30,6 +30,13 @@ export default function Regras() {
     return valor;
   };
 
+  function formatAndCapitalize(str) {
+    return str
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+  }
+
   // Modais
   const [mdNavbar, setMdNavbar] = useState(false);
   const [carregando, setCarregando] = useState(true);
@@ -67,7 +74,7 @@ export default function Regras() {
             {/* Principal */}
             <section className='content-regras'>
                 <div className='text'>
-                    <h1>Regras Internas do Jogo <strong>{game}</strong></h1>
+                    <h1>Regras Internas do Jogo <strong>{formatAndCapitalize(game)}</strong></h1>
                     <p>É essencial ler e seguir as regras para garantir a sua chance de vitória no Interclasse. Respeitar as diretrizes é fundamental para uma competição justa e emocionante para todos os participantes.</p>
                 </div>
             </section>

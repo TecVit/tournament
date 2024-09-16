@@ -152,7 +152,8 @@ h1, h2, h3, h4, h5, h6, a, p, strong, span, label, input, textarea {
 /* Scroll Bar */
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 0px;
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -165,7 +166,8 @@ h1, h2, h3, h4, h5, h6, a, p, strong, span, label, input, textarea {
 }
 
 *::-moz-scrollbar {
-  width: 12px;
+  width: 0px;
+  display: none;
 }
 
 *::-moz-scrollbar-thumb {

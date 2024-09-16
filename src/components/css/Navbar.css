@@ -135,7 +135,7 @@
 }
 
 /* Navbar Mobile */
-@media (max-width: 800px) {
+@media (max-width: 910px) {
     .content-navbar .links {
         display: none;
     }

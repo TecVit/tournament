@@ -26,6 +26,7 @@ import minecraftImage from '../image/minecraft.png';
 import brawlImage from '../image/brawl.png';
 import freefireImage from '../image/freefire.png';
 import robloxImage from '../image/roblox.png';
+import clashroyaleImage from '../image/clashroyale.png';
 
 export default function Landing() {
 
@@ -68,6 +69,12 @@ export default function Landing() {
         link: "https://play.google.com/store/apps/details?id=com.roblox.client&hl=pt_BR",
     },
     {
+        name: "Clash Royale",
+        description: "Entre na arena! Monte seu deck de batalha e leve a melhor em disputas rápidas em tempo real.",
+        image: clashroyaleImage,
+        link: "https://play.google.com/store/apps/details?id=com.supercell.clashroyale",
+    },
+    {
         name: "Free Fire",
         description: "Free Fire é um jogo battle royale para mobile onde 50 jogadores competem para ser o último sobrevivente. As partidas são rápidas e exigem estratégia...",
         image: freefireImage,
@@ -78,7 +85,7 @@ export default function Landing() {
         description: "Brawl Stars é um jogo de batalha multiplayer onde equipes competem em diversos modos com personagens únicos, cada um com habilidades especiais...",
         image: brawlImage,
         link: "https://play.google.com/store/apps/details?id=com.supercell.brawlstars&hl=pt_BR",
-    }
+    },
   ];
 
   const turmas = [

@@ -50,7 +50,7 @@
     letter-spacing: 0.2px;
     margin: 0px 0px 12px 0px;
 } .content-regras .text h1 strong {
-    color: var(--one);
+    color: var(--two);
     font-weight: 900;
 }
 
@@ -63,7 +63,7 @@
     letter-spacing: 0.2px;
     margin: 0px 0px 20px 0px;
 } .content-regras .text p strong {
-    color: var(--one);
+    color: var(--two);
     font-weight: 900;
 }
 
@@ -164,7 +164,7 @@
     flex-direction: row;
     align-items: center;
 } .container-regras .content-games .games li h1 strong {
-    color: var(--one);
+    color: var(--two);
     font-weight: 800;
 }
 
@@ -179,7 +179,7 @@
     flex-direction: row;
     align-items: center;
 } .container-regras .content-games .games li h1 strong {
-    color: var(--one);
+    color: var(--two);
     font-weight: 800;
 }
 

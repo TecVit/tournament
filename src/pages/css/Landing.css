@@ -186,11 +186,12 @@
     width: 325px;
     height: max-content;
     margin: auto 0px;
+    display: none;
 }
 
 .container-landing .content-games .games {
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -232,7 +233,7 @@
 
 .container-landing .content-games .games .list .game {
     flex: 1;
-    min-width: 250px;
+    min-width: 260px;
     background: var(--four);
     border-radius: 12px;
     padding: 22.5px;
@@ -271,16 +272,16 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 17.5px;
+    gap: 20px;
 }
 
 .container-landing .content-games .games .list .game .flex button {
     flex: 1;
-    min-width: 120px;
+    min-width: 105px;
     height: auto;
     font-size: 13px;
-    padding: 13.5px 15px;
-    margin: 0px 12.5px 0px 0px;
+    padding: 13px;
+    margin: 0px 0px 0px 0px;
     color: var(--stoneEleven);
     border-radius: 20px;
     background: var(--one);
