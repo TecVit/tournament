@@ -15,6 +15,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 
 import { coletarRankings } from '../firebase/ranking';
+import { coletarChaveamentos } from '../firebase/chaveamento';
 
 import { NotificationContainer, notifyError, notifySuccess } from '../toastifyServer';
 import Navbar from '../components/Navbar';
@@ -202,7 +203,29 @@ export default function Landing() {
     3: "V",
     4: "D",
     5: "PTS",
-  }
+  };
+
+  /* Chaveamento */
+  const [chaveamentos, setChaveamentos] = useState([]);
+
+  useEffect(() => {
+    const lerChaveamentos = async () => {
+        setCarregando(true);
+        try {
+            const chaveamentosList = await coletarChaveamentos();
+            if (chaveamentosList.length > 0) {
+                setChaveamentos(chaveamentosList);
+            }
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
+        } finally {
+            setCarregando(false);
+        }
+    }
+    lerChaveamentos();
+  }, []);
 
   return (
     <>
@@ -230,11 +253,11 @@ export default function Landing() {
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
-                            <p>Minecraft - dia X de setembro</p>
+                            <p>Minecraft - dia X de outubro</p>
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
-                            <p>Free Fire - dia X de setembro</p>
+                            <p>Free Fire - dia X de outubro</p>
                         </div>
                     ))}
                 </div>
@@ -364,156 +387,92 @@ export default function Landing() {
             </section>
 
             {/* Chaveamento do Brawl Stars */}
-            <section className='container-chaveamento'>
+            <section id='chaveamento' className='container-chaveamento'>
                 <div className='content-chaveamento'>
-                    <h1>Chaveamento do <strong>Brawl Stars</strong></h1>
-                    <p>Acompanhe o chaveamento atualizado do <strong>Brawl Stars</strong> e veja quais equipes estão avançando nas rodadas.</p>
-                    <div className='chaves'>
-                    <div className='top'>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>9º Ano A</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>2ª Série A</p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo semi'>
-                                <div className='turma'>
-                                    <p>Final</p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>3ª Série C</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>1º Ano A</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='bottom'>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>3ª Série A</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>1ª Série B</p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo semi'>
-                                <div className='turma'>
-                                    <p> Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>2ª Série B</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>3ª Série B</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {chaveamentos.length > 0 && (
+                        chaveamentos.map((val, index) => (
+                            <>
+                                <h1>Chaveamento do <strong>{val.game}</strong></h1>
+                                <p>Acompanhe o chaveamento atualizado do <strong>{val.game}</strong> e veja quais equipes estão avançando nas rodadas.</p>
+                                <div className='chaves'>
+                                <div className='top'>
+                                        <div className='grupo'>
+                                            {val.grupo1 && val.grupo1.length > 0 && (
+                                              val.grupo1.map((turma, j) => (
+                                                <div className='turma'>
+                                                    <p>{turma}</p>
+                                                </div>
+                                              ))
+                                            )}
+                                        </div>
+                                        <div className='grupo quartas'>
+                                            <div className='turma'>
+                                                <p>{val['semi1-2'] ? val['semi1-2'][0] : 'Semi-Final'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='grupo semi'>
+                                            <div className='turma'>
+                                                <p>{val['final'] ? val['final'][0] : 'Final'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='grupo quartas'>
+                                            <div className='turma'>
+                                                <p>{val['semi1-2'] ? val['semi1-2'][1] : 'Semi-Final'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='grupo'>
+                                            {val.grupo2 && val.grupo2.length > 0 && (
+                                              val.grupo2.map((turma, j) => (
+                                                <div className='turma'>
+                                                    <p>{turma}</p>
+                                                </div>
+                                              ))
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className='bottom'>
+                                        <div className='grupo'>
+                                            {val.grupo3 && val.grupo3.length > 0 && (
+                                              val.grupo3.map((turma, j) => (
+                                                <div className='turma'>
+                                                    <p>{turma}</p>
+                                                </div>
+                                              ))
+                                            )}
+                                        </div>
+                                        <div className='grupo quartas'>
+                                            <div className='turma'>
+                                                <p>{val['semi3-4'] ? val['semi3-4'][0] : 'Semi-Final'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='grupo semi'>
+                                            <div className='turma'>
+                                                <p>{val['final'] ? val['final'][1] : 'Final'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='grupo quartas'>
+                                            <div className='turma'>
+                                                <p>{val['semi3-4'] ? val['semi3-4'][1] : 'Semi-Final'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='grupo'>
+                                            {val.grupo4 && val.grupo4.length > 0 && (
+                                              val.grupo4.map((turma, j) => (
+                                                <div className='turma'>
+                                                    <p>{turma}</p>
+                                                </div>
+                                              ))
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>  
+                            </>
+                        ))
+                    )}
                 </div>
             </section>
 
-              {/* Chaveamento */}
-            <section className='container-chaveamento'>
-                <div className='content-chaveamento'>
-                    <h1>Chaveamento do <strong>Free Fire</strong></h1>
-                    <p>Acompanhe o chaveamento atualizado do <strong>Free Fire</strong> e veja quais equipes estão avançando nas rodadas.</p>
-                    <div className='chaves'>
-                    <div className='top'>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>3ª Série B</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>3ª Série C</p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo semi'>
-                                <div className='turma'>
-                                    <p>Final</p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>2ª Série A</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>9º Ano A</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='bottom'>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>2ª Série B</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>1ª Série B</p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo semi'>
-                                <div className='turma'>
-                                    <p> Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo quartas'>
-                                <div className='turma'>
-                                    <p> Semi-Final </p>
-                                </div>
-                            </div>
-                            <div className='grupo'>
-                                <div className='turma'>
-                                    <p>1ª Série A</p>
-                                </div>
-                                <div className='turma'>
-                                    <p>3ª Série A</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
 
 
             <div className='linha-rgb'></div>
@@ -531,11 +490,11 @@ export default function Landing() {
                     </div>
                     <div className='input'>
                         <IoPersonOutline className='icon'/>
-                        <input onChange={(e) => setInputNome(e.target.value)} value={inputNome} placeholder='Nome do Player' type='text' />    
+                        <input onChange={(e) => setInputNome(e.target.value)} value={inputNome} placeholder='Nome do Aluno' type='text' />    
                     </div>
                     <div className='input'>
                         <IoMailOutline className='icon' />
-                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Email do Player' type='text' />    
+                        <input onChange={(e) => setInputEmail(e.target.value)} value={inputEmail} placeholder='Email do Aluno' type='text' />    
                     </div>
                     <div className='input'>
                         <IoSchoolOutline className='icon'/>

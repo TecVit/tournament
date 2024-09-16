@@ -70,6 +70,50 @@ export default function Navbar() {
   }
 
 
+  const entrarGoogle = async () => {
+    setCarregando(true);
+    try {
+      if (carregando) {
+        notifyError('Por favor, aguarde um momento');
+        return;
+      }
+      
+      const entrando = await entrarComGoogle();
+      if (entrando === 'sucesso') {
+        notifySuccess('Usuário logado com sucesso');
+        setTimeout(() => {
+          window.location.href = "";
+        }, 3750);
+        return;
+      } else if (entrando === 'email-invalido') {
+        notifyError('Email inválido');
+        return;
+      } else if (entrando === 'email-em-uso') {
+        notifyError('Email já está em uso');
+        return;
+      } else if (entrando === 'nome-de-usuario-em-uso') {
+        notifyError('Nome de usuário já está em uso');
+        return;
+      } else if (entrando === 'credenciais-invalidas') {
+        notifyError('Credenciais Inválidas');
+        return;
+      } else if (entrando === 'popup-fechou') {
+        notifyError('O Popup foi fechado, tente novamente');
+        return;
+      } else {
+        notifyError('Houve um erro');
+        return;
+      }
+      
+    } catch (error) {
+      console.log(error);
+      return;
+    } finally {
+      setCarregando(false);
+    }
+  }
+
+
   return (
     <>    
         {/* Navbar */}
@@ -81,6 +125,7 @@ export default function Navbar() {
                         <a href="/#">Início</a>
                         <a href="/#regras">Regras</a>
                         <a href='/#ranking'>Ranking</a>
+                        <a href='/#chaveamento'>Chaveamento</a>
                         <a href='/#ao-vivo'>Ao Vivo</a>
                         <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         <button onClick={() => setMdPopupEntrar(true)} className='btn-secondary'>
@@ -101,6 +146,7 @@ export default function Navbar() {
                         <a href="/#">Início</a>
                         <a href="/#regras">Regras</a>
                         <a href='/#ranking'>Ranking</a>
+                        <a href='/#chaveamento'>Chaveamento</a>
                         <a href='/#ao-vivo'>Ao Vivo</a>
                         <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         <button onClick={() => setMdPopupEntrar(true)} className='btn-secondary'>
@@ -133,7 +179,7 @@ export default function Navbar() {
                         <p>Ou</p>
                         <div></div>
                     </div>
-                    <button className='google'>
+                    <button onClick={entrarGoogle} className='google'>
                         <FcGoogle className='icon' />
                         Entrar com Google
                     </button>
