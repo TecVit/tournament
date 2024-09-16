@@ -363,7 +363,83 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* Chaveamento */}
+            {/* Chaveamento do Brawl Stars */}
+            <section className='container-chaveamento'>
+                <div className='content-chaveamento'>
+                    <h1>Chaveamento do <strong>Brawl Stars</strong></h1>
+                    <p>Acompanhe o chaveamento atualizado do <strong>Brawl Stars</strong> e veja quais equipes estão avançando nas rodadas.</p>
+                    <div className='chaves'>
+                    <div className='top'>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>9º Ano A</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>2ª Série A</p>
+                                </div>
+                            </div>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
+                            </div>
+                            <div className='grupo semi'>
+                                <div className='turma'>
+                                    <p>Final</p>
+                                </div>
+                            </div>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
+                            </div>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>3ª Série C</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>1º Ano A</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='bottom'>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>3ª Série A</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>1ª Série B</p>
+                                </div>
+                            </div>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
+                            </div>
+                            <div className='grupo semi'>
+                                <div className='turma'>
+                                    <p> Final </p>
+                                </div>
+                            </div>
+                            <div className='grupo quartas'>
+                                <div className='turma'>
+                                    <p> Semi-Final </p>
+                                </div>
+                            </div>
+                            <div className='grupo'>
+                                <div className='turma'>
+                                    <p>2ª Série B</p>
+                                </div>
+                                <div className='turma'>
+                                    <p>3ª Série B</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+              {/* Chaveamento */}
             <section className='container-chaveamento'>
                 <div className='content-chaveamento'>
                     <h1>Chaveamento do <strong>Free Fire</strong></h1>
