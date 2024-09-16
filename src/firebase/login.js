@@ -217,6 +217,33 @@ export const entrarComEmail = async (email, senha) => {
     }
 };
 
+export const entrarAdmin = async (email, senha) => {
+    await clearCookies();
+    try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, senha);
+        const user = userCredential.user;
+
+        if (!user) {
+            return 'credencial-invalida';
+        }
+
+        const uid = user.uid;
+        
+        setCookie('email', email);
+        setCookie('uid', uid);
+
+        return 'sucesso';
+    } catch (error) {
+        if (error.code === 'auth/invalid-email') {
+            return 'email-invalido';
+        } else if (error.code === 'auth/invalid-credential') {
+            return 'credenciais-invalidas';
+        }
+        console.error('Erro ao entrar:', error);
+        return 'erro';
+    }
+};
+
 export const enviarLinkEmail = (email) => {
     return auth.sendPasswordResetEmail(email)
     .then(() => {

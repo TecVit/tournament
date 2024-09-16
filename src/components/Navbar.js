@@ -1,12 +1,74 @@
 import React, { useEffect, useState } from 'react'
 import './css/Navbar.css';
 import Logo from '../image/logo.png';
-import { IoClose } from 'react-icons/io5';
+import { IoClose, IoMailOpen, IoMailOutline, IoPersonOutline } from 'react-icons/io5';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import Popup from './Popup';
+import { CgPassword } from 'react-icons/cg';
+import { MdLockOutline } from 'react-icons/md';
+import { FcGoogle } from 'react-icons/fc';
+import { entrarAdmin, entrarComEmail, entrarComGoogle } from '../firebase/login';
+import { notifyError, notifySuccess } from '../toastifyServer';
 
 export default function Navbar() {
   
+  // Modais
   const [mdNavbar, setMdNavbar] = useState(false);
+  const [mdPopupEntrar, setMdPopupEntrar] = useState(false);
+  const [carregando, setCarregando] = useState(false);
+
+  // Inputs
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const handleEntrar = async () => {
+    setCarregando(true);
+    try {
+      if (carregando) {
+        notifyError('Por favor, aguarde um momento');
+        return;
+      }
+      if (!email || !senha) {
+        notifyError('Por favor, insira suas informações corretamente');
+        return;
+      }
+      if (senha && senha.length < 6) {
+        notifyError('Por favor, insira uma senha com mais de 6 caracteres');
+        return;
+      }
+      
+      const entrando = await entrarAdmin(email, senha);
+      if (entrando === 'sucesso') {
+        notifySuccess('Usuário logado com sucesso');
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3750);
+        return;
+      } else if (entrando === 'email-invalido') {
+        notifyError('Email inválido');
+        return;
+      } else if (entrando === 'email-em-uso') {
+        notifyError('Email já está em uso');
+        return;
+      } else if (entrando === 'nome-de-usuario-em-uso') {
+        notifyError('Nome de usuário já está em uso');
+        return;
+      } else if (entrando === 'credenciais-invalidas') {
+        notifyError('Credenciais Inválidas');
+        return;
+      } else {
+        notifyError('Houve um erro');
+        return;
+      }
+      
+    } catch (error) {
+      console.log(error);
+      return;
+    } finally {
+      setCarregando(false);
+    }
+  }
+
 
   return (
     <>    
@@ -21,6 +83,10 @@ export default function Navbar() {
                         <a href='/#ranking'>Ranking</a>
                         <a href='/#ao-vivo'>Ao Vivo</a>
                         <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
+                        <button onClick={() => setMdPopupEntrar(true)} className='btn-secondary'>
+                            <IoPersonOutline className='icon' />
+                            Entrar
+                        </button>
                     </div>
                 )}
                 {mdNavbar ? (
@@ -37,10 +103,44 @@ export default function Navbar() {
                         <a href='/#ranking'>Ranking</a>
                         <a href='/#ao-vivo'>Ao Vivo</a>
                         <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
+                        <button onClick={() => setMdPopupEntrar(true)} className='btn-secondary'>
+                            <IoPersonOutline className='icon' />
+                            Entrar
+                        </button>
                     </div>
                 </div>
             )}
         </header>
+
+        {/* Popup - Entrar */}
+        {mdPopupEntrar && (
+            <Popup>
+                <div className='form'>
+                    <div className='bar'>
+                        <h1>Entrar na conta de <strong>Administrador</strong></h1>
+                        <IoClose onClick={() => setMdPopupEntrar(false)} className='icon' />
+                    </div>
+                    <div className='input'>
+                        <IoMailOutline className='icon' />
+                        <input onChange={(e) => setEmail(e.target.value)} placeholder='Seu email' type='text' />
+                    </div>
+                    <div className='input'>
+                        <MdLockOutline className='icon' />
+                        <input onChange={(e) => setSenha(e.target.value)} placeholder='Sua senha' type='password' />
+                    </div>
+                    <div className='ou'>
+                        <div></div>
+                        <p>Ou</p>
+                        <div></div>
+                    </div>
+                    <button className='google'>
+                        <FcGoogle className='icon' />
+                        Entrar com Google
+                    </button>
+                    <button onClick={handleEntrar}>Entrar</button>
+                </div>
+            </Popup>
+        )}
     </>
   )
 }
