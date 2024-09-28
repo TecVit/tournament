@@ -399,7 +399,7 @@ export default function Landing() {
                     {chaveamentos.length > 0 && (
                         chaveamentos.map((val, index) => (
                             <>
-                                <h1>Chaveamento do <strong>{val.game}</strong></h1>
+                                <h1>Chaveamento do <strong>{val.game}</strong> do Ensino {val.ensino}</h1>
                                 <p>Acompanhe o chaveamento atualizado do <strong>{val.game}</strong> e veja quais equipes estão avançando nas rodadas.</p>
                                 <div className='chaves'>
                                 <div className='top'>

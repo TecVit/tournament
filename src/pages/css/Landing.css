@@ -473,9 +473,10 @@
 
 .container-landing .content-chaveamento h1 {
     width: auto;
+    max-width: 500px;
     font-size: 30px;
     font-weight: 800;
-    line-height: 36px;
+    line-height: 40px;
     letter-spacing: 0.1px;
     margin: 0px 0px 10px 0px;
 } .container-landing .content-chaveamento h1 strong {
