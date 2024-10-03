@@ -25,7 +25,7 @@ import Navbar from '../components/Navbar';
 import minecraftImage from '../image/minecraft.png';
 import brawlImage from '../image/brawl.png';
 import freefireImage from '../image/freefire.png';
-import robloxImage from '../image/roblox.png';
+import csImage from '../image/cs.png';
 import clashroyaleImage from '../image/clashroyale.png';
 
 export default function Landing() {
@@ -60,13 +60,13 @@ export default function Landing() {
         name: "Minecraft",
         description: "Minecraft é um jogo de construção e exploração onde você cria e sobrevive em um mundo feito de blocos...",
         image: minecraftImage,
-        link: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe&hl=pt_BR",
+        link: "https://www.minecraft.net/pt-br",
     },
     {
-        name: "Roblox",
-        description: "Roblox é uma plataforma de jogos online onde os usuários podem jogar uma variedade de minijogos...",
-        image: robloxImage,
-        link: "https://play.google.com/store/apps/details?id=com.roblox.client&hl=pt_BR",
+        name: "Counter Strike",
+        description: "Counter-Strike é um jogo de tiro em primeira pessoa focado em combate tático e trabalho em equipe...",
+        image: csImage,
+        link: "https://store.steampowered.com/app/10/CounterStrike/",
     },
     {
         name: "Clash Royale",
@@ -109,6 +109,7 @@ export default function Landing() {
 
   // Modais
   const [mdPopup, setMdPopup] = useState(false);
+  const [mdPopupAlert, setMdPopupAlert] = useState(false);
   const [mdErro, setMdErro] = useState(false);
   const [mdSuccess, setMdSuccess] = useState(false);
   const [carregando, setCarregando] = useState(false);
@@ -178,12 +179,6 @@ export default function Landing() {
     };
   
     coletandoRanking();
-  
-    const intervalId = setInterval(() => {
-      coletandoRanking();
-    }, 60000); // 60.000 ms = 1 minuto
-  
-    return () => clearInterval(intervalId);
   }, []);
   
   const indexOfLastItemTurmas = paginaTurmas * itensPorPagina;
@@ -233,6 +228,13 @@ export default function Landing() {
     }
     lerChaveamentos();
   }, []);
+
+
+  // Ativa o Alert
+  useEffect(() => {
+    setMdPopupAlert(true);
+  }, []);
+
 
   return (
     <>
@@ -530,6 +532,42 @@ export default function Landing() {
                 </div>
             </Popup>
         )}
+
+
+        {/* Atualizações */}
+        {mdPopupAlert && (
+            <Popup>
+                <div className='alert'>
+                    <div className='bar'>
+                        <h1>Atualizações importantes do <strong>Interclasse</strong></h1>
+                        <IoClose onClick={() => setMdPopupAlert(false)} className='icon' />
+                    </div>
+
+                    {/* Jogos */}
+                    <h2>Jogo Adicionado - <strong>Counter Strike</strong></h2>
+                    <p>
+                    O motivo da substituição do Roblox pelo Counter Strike é devido à natureza diversificada dos minigames presentes no Roblox, que frequentemente geram divergências entre os participantes. <br/><br/> 
+                    Em contrapartida, o Counter Strike é um jogo mais padronizado, o que facilita a organização. Além disso, por ser uma plataforma de jogo para computadores, oferece maior controle e acessibilidade para todos os envolvidos.
+                    </p>
+                    
+                    <h2>Chaveamento e Grupos</h2>
+                    <p>O sorteio das chaves para as quartas de final dos jogos <strong>Free Fire</strong>, <strong>Counter Strike</strong> e <strong>Brawl Stars</strong> será realizado durante o intervalo, permitindo que todos os estudantes possam acompanhar e garantir que o processo seja conduzido de maneira legítima e transparente.</p>
+
+                    <h2>Datas</h2>
+                    <p>As datas serão divulgadas em breve. O Interclasse Gamer começará neste mês de outubro, e os jogos serão divididos por semanas, com partidas acontecendo a cada semana.</p>
+
+                    <h2>Critérios para participar</h2>
+                    <p>
+                    Os critérios para participação são: na semana de início do Interclasse, as partidas ocorrerão toda quinta e sexta-feira. Dentro dessa mesma semana, o competidor não poderá faltar mais de <strong>1 dia</strong>, a menos que apresente um atestado médico ou um motivo plausível.<br/><br/>
+                    O foco é que os jogadores, a torcida e a turma se divirtam neste Interclasse e que tudo ocorra bem para que o evento possa acontecer mais vezes e em todos os anos. No entanto, há uma falta significativa de alunos na escola. Como iniciativa do <strong>Grêmio Estudantil</strong>, em parceria com a diretoria, criamos este Interclasse e estabelecemos esses critérios para incentivar a frequência dos alunos. Como recompensa, eles poderão participar dos treinamentos e dos jogos.
+                    </p>
+                
+                
+                    <a>Atualizado: Dia 2 de Outubro de 2024</a>
+                </div>
+            </Popup>
+        )}
+
     </>
   )
 }

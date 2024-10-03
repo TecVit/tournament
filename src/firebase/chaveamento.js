@@ -21,13 +21,19 @@ const coletarChaveamentos = async () => {
         const chaveamentosRef = await firestore.collection(`chaveamento-${ano}`).get();
         if (!chaveamentosRef.empty) {
             let chaveamentos = await Promise.all(chaveamentosRef.docs.map( async (doc, index) => {
-                return {
-                    ...doc.data(),
-                    game: formatAndCapitalize(doc.id),
-                    id: doc.id,
+                if (doc.data().disponivel === true) {
+                     return {
+                        ...doc.data(),
+                        game: formatAndCapitalize(doc.id),
+                        id: doc.id,
+                    }
                 }
+                return null;
             }));
-            return chaveamentos;
+
+            chaveamentos = chaveamentos.filter(chaveamento => chaveamento !== null);
+
+            return chaveamentos.length > 0 ? chaveamentos : [];
         }
         return false;
     } catch (error) {
