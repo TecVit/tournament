@@ -273,7 +273,7 @@ export default function Landing() {
     'Quarta',
     'Quinta',
     'Sexta',
-    'Sabado',
+    'Sábado',
   ];
 
   // Coletar Calendario
@@ -634,47 +634,45 @@ export default function Landing() {
 
                                             <div className='events'>
 
-                                                {val.dias.length > 0 && (
-                                                    val.dias.map((dia, j) => {
-                                                        return (
-                                                            <div className='card'>
-                                                                <a>Dia {j+1} de {val.mes} de {year}</a>
-                                                                <div className='events'>
-                                                                    {dia.eventos.length > 0 ? (
-                                                                        dia.eventos.map((evento, k) => {
-                                                                            if (evento.disponivel !== false && evento.disponivel !== null && evento.disponivel !== undefined) {
-                                                                                return (
-                                                                                    <div id={`evento#${j+1}#${k+1}`} className='event' style={{ border: `3px solid ${evento.cor}`, '--evento-cor': evento.cor }} key={k}>
-                                                                                        <img src={evento.imagem} alt={evento.jogo} />
-                                                                                        <h1>{evento.fase} - {evento.jogo}</h1>
-                                                                                        <p>{evento.horario}</p>
-                                                                                        {evento.times.length > 0 && (
-                                                                                            <h2 className='times'>
-                                                                                                {evento.times.map((time, l) => (
-                                                                                                    <>
-                                                                                                        <span key={l}>{time}</span>
-                                                                                                        {l+1 !== evento.times.length && (
-                                                                                                            <span>x</span>
-                                                                                                        )}
-                                                                                                    </>
-                                                                                                ))}
-                                                                                            </h2>
-                                                                                        )}
-                                                                                        {evento.resultado && (
-                                                                                            <h2>{evento.resultado}</h2>
-                                                                                        )}
-                                                                                    </div>
-                                                                                )
-                                                                            }
-                                                                        })
-                                                                    ) : (
-                                                                        <h1 className='not-found'>Nenhum evento encontrado</h1>
-                                                                    )}
-                                                                </div>
+                                            {val.dias.length > 0 && (
+                                                val.dias.map((dia, j) => {
+                                                    const eventosDisponiveis = dia.eventos.filter(evento => evento.disponivel !== false);
+
+                                                    return eventosDisponiveis.length > 0 && (
+                                                        <div className='card' key={j}>
+                                                            <a>Dia {j + 1} de {val.mes} de {year}</a>
+                                                            <div className='events'>
+                                                                {eventosDisponiveis.map((evento, k) => (
+                                                                    <div 
+                                                                        id={`evento#${j + 1}#${k + 1}`} 
+                                                                        className='event' 
+                                                                        style={{ border: `3px solid ${evento.cor}`, '--evento-cor': evento.cor }} 
+                                                                        key={k}
+                                                                    >
+                                                                        <img src={evento.imagem} alt={evento.jogo} />
+                                                                        <h1>{evento.fase} - {evento.jogo}</h1>
+                                                                        <p>{evento.horario}</p>
+                                                                        {evento.times && evento.times.length > 0 && (
+                                                                            <h2 className='times'>
+                                                                                {evento.times.map((time, l) => (
+                                                                                    <React.Fragment key={l}>
+                                                                                        <span>{time}</span>
+                                                                                        {l + 1 !== evento.times.length && <span>x</span>}
+                                                                                    </React.Fragment>
+                                                                                ))}
+                                                                            </h2>
+                                                                        )}
+                                                                        {evento.resultado && (
+                                                                            <h2>{evento.resultado}</h2>
+                                                                        )}
+                                                                    </div>
+                                                                ))}
                                                             </div>
-                                                        )
-                                                    })
-                                                )}
+                                                        </div>
+                                                    );
+                                                })
+                                            )}
+
 
                                             </div>
                                         </div>
