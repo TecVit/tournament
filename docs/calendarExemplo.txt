@@ -1,0 +1,63 @@
+
+  const calendar = [
+    { 
+      mes: 'Janeiro', 
+      firstDay: getFirstDayOfMonth(year, 1),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Fevereiro',
+      firstDay: getFirstDayOfMonth(year, 2),
+      dias: Array.from({ length: 29 }, (_, i) => ({ eventos: [] })) // Para anos bissextos, ajuste para 28.
+    },
+    { 
+      mes: 'Março', 
+      firstDay: getFirstDayOfMonth(year, 3),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Abril', 
+      firstDay: getFirstDayOfMonth(year, 4),
+      dias: Array.from({ length: 30 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Maio', 
+      firstDay: getFirstDayOfMonth(year, 5),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Junho', 
+      firstDay: getFirstDayOfMonth(year, 6),
+      dias: Array.from({ length: 30 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Julho', 
+      firstDay: getFirstDayOfMonth(year, 7),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Agosto', 
+      firstDay: getFirstDayOfMonth(year, 8),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Setembro', 
+      firstDay: getFirstDayOfMonth(year, 9),
+      dias: Array.from({ length: 30 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Outubro', 
+      firstDay: getFirstDayOfMonth(year, 10),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] })),
+    },
+    { 
+      mes: 'Novembro', 
+      firstDay: getFirstDayOfMonth(year, 11),
+      dias: Array.from({ length: 30 }, (_, i) => ({ eventos: [] }))
+    },
+    { 
+      mes: 'Dezembro', 
+      firstDay: getFirstDayOfMonth(year, 12),
+      dias: Array.from({ length: 31 }, (_, i) => ({ eventos: [] }))
+    }
+  ];

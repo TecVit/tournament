@@ -180,6 +180,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 0px 0px 25px 0px;
 }
 
 .container-landing .content-games .img-jogos {
@@ -321,13 +322,15 @@
 .container-landing .container-ranking {
     width: 100%;
     height: auto;
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
     padding: 60px 0px 30px 0px;
     position: relative;
+} .container-landing .container-ranking:nth-child(odd) {
+    background-image: var(--backgroundTwo);
 }
 
 .container-landing .content-ranking {
@@ -409,6 +412,8 @@
 } .container-landing .content-ranking .tabela .linha.one .coluna p {
     font-size: 15.5px;
     text-transform: uppercase;
+} .container-landing .content-ranking .tabela .linha .coluna p.nome {
+    text-align: start;
 }
 
 .container-landing .content-ranking .pagination {
@@ -468,7 +473,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 50px 0px;
+    margin: 50px 0px 25px 0px;
 }
 
 .container-landing .content-chaveamento h1 {
@@ -579,7 +584,297 @@
 .container-landing .content-chaveamento .top .grupo .turma {
     margin: 0px 0px 15px 0px;
 }
-  
+
+
+/* Calendar */
+.container-landing .container-calendar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0px;
+} .container-landing .container-calendar {
+    background-image: var(--backgroundTwo);
+}
+
+.container-landing .content-calendar {
+    width: 90%;
+    max-width: 1111px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px 75px 0px;
+}
+
+.container-landing .content-calendar .titulo {
+    width: 100%;
+    max-width: 500px;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 36px;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 10px 0px;
+} .container-landing .content-calendar .titulo strong {
+    color: var(--two);
+    font-weight: 800;
+}
+
+.container-landing .content-calendar .subtitulo {
+    width: 100%;
+    max-width: 500px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 20px 0px;
+}
+
+
+.container-landing .content-calendar .calendar {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background: var(--four);
+    border: 2px solid var(--two);
+    border-radius: 12px;
+    border-top: 10px solid var(--two);
+    padding: 30px 40px;
+    margin: 15px 0px 50px 0px;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.container-landing .content-calendar .calendar .title {
+    width: 100%;
+    min-width: 700px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px 0px 30px 0px;
+}
+
+.container-landing .content-calendar .calendar .title h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+}
+
+.container-landing .content-calendar .calendar .title .btns {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px 5px 0px auto;
+}
+
+.container-landing .content-calendar .calendar .title .btns .seta {
+    font-size: 22.5px;
+    margin: 0px 15px;
+    cursor: pointer;
+} .container-landing .content-calendar .calendar .title .btns .seta:hover {
+    color: var(--two);
+}
+
+
+
+
+/* Tabela */
+.container-landing .content-calendar .calendar .table {
+    width: 100%;
+    min-width: 700px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-x: scroll;
+    padding: 0px 20px 0px 0px;
+}
+
+.container-landing .content-calendar .calendar .table .day {
+    width: calc(100% / 7);
+    min-width: 60px;
+    height: max-content;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 2px solid var(--two);
+    border-bottom: 2px solid var(--two);
+}
+
+.container-landing .content-calendar .calendar .table .day:nth-child(7n) {
+    border-right: 2px solid var(--two);
+}
+
+.container-landing .content-calendar .calendar .table .day:last-child {
+    border-right: 2px solid var(--two);
+}
+
+.container-landing .content-calendar .calendar .table .day:nth-child(-n + 7) {
+    border-top: 2px solid var(--two);
+}
+
+
+.container-landing .content-calendar .calendar .table .day.name-day {
+    background: var(--one);
+    min-height: 80px;
+}  .container-landing .content-calendar .calendar .table .day.name-day p {
+    width: 60%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container-landing .content-calendar .calendar .table .day .events {
+    width: 98.5%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container-landing .content-calendar .calendar .table .day .events p {
+    font-size: 15px;
+    padding: 5px 11px;
+    border-radius: 4px;
+    margin: 6.5px;
+    cursor: pointer;
+}
+
+
+/* Tags do Calendario */
+.container-landing .content-calendar .tags {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background: var(--four);
+    border: 2px solid var(--two);
+    border-radius: 12px;
+    border-top: 10px solid var(--two);
+    overflow: hidden;
+    padding: 30px 40px;
+}
+
+
+.container-landing .content-calendar .tags .title {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px 0px 30px 0px;
+}
+
+.container-landing .content-calendar .tags .title h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+}
+
+
+.container-landing .content-calendar .tags .events {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-landing .content-calendar .tags .events .card {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7.5px 0px 15px;
+}
+
+.container-landing .content-calendar .tags .events .card a {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--stoneSeven);
+    color: var(--two);
+    letter-spacing: 0.1px;
+    margin: 0px 0px 6px 0px;
+}
+
+.container-landing .content-calendar .tags .events .card .events {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.container-landing .content-calendar .tags .events .card .events .not-found {
+    width: 100%;
+    font-size: 18px;
+    margin: 0px;
+    text-align: start;
+}
+
+.container-landing .content-calendar .tags .events .card .events .event {
+    width: max-content;
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0px 20px 0px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background: var(--three);
+    color: var(--stoneEleven);
+    padding: 22.5px 32.5px 22.5px 22.5px;
+    border-left: 6px solid var(--evento-cor) !important;
+}
+
+.container-landing .content-calendar .tags .events .card .events .event img {
+    width: max-content;
+    height: 50px;
+    border-radius: 8px;
+    margin: 0px 0px 16px 0px;
+}
+
+.container-landing .content-calendar .tags .events .card .events .event h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+    margin: 0px 0px 8px 0px;
+}
+
+.container-landing .content-calendar .tags .events .card .events .event h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.1px;
+    margin: 10px 0px 6px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+} .container-landing .content-calendar .tags .events .card .events .event h2 span {
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: 0.5px;
+    margin: 0px 6.5px 0px 0px;
+}
+
+.container-landing .content-calendar .tags .events .card .events .event p {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}
+
+
+
+
+
+
 
 /* Mobile */
 @media (max-width: 1050px) {
@@ -617,5 +912,16 @@
         width: 70%;
         height: 50px;
         font-size: 14px;
+    }
+}
+
+
+/* Calendario e Eventos */
+@media (max-width: 960px) {
+    .container-landing .content-calendar .calendar {
+        padding: 30px 22.5px;
+    }
+    .container-landing .content-calendar .tags {
+        padding: 30px 22.5px;
     }
 }

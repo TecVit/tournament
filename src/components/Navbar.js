@@ -125,8 +125,8 @@ export default function Navbar() {
                         <a href="/#">Início</a>
                         <a href="/#regras">Regras</a>
                         <a href='/#ranking'>Ranking</a>
-                        <a href='/#chaveamento'>Chaveamento</a>
-                        <a href='/#ao-vivo'>Ao Vivo</a>
+                        <a href='/#chaves'>Chaves</a>
+                        <a href='/#calendario'>Calendário</a>
                         <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         <button onClick={() => setMdPopupEntrar(true)} className='btn-secondary'>
                             <IoPersonOutline className='icon' />
@@ -146,8 +146,8 @@ export default function Navbar() {
                         <a href="/#">Início</a>
                         <a href="/#regras">Regras</a>
                         <a href='/#ranking'>Ranking</a>
-                        <a href='/#chaveamento'>Chaveamento</a>
-                        <a href='/#ao-vivo'>Ao Vivo</a>
+                        <a href='/#chaves'>Chaves</a>
+                        <a href='/#calendario'>Calendário</a>
                         <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Inscrever-se</button>
                         <button onClick={() => setMdPopupEntrar(true)} className='btn-secondary'>
                             <IoPersonOutline className='icon' />

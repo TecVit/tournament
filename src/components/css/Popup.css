@@ -13,7 +13,7 @@
 
 .content-popup {
     width: 92.5%;
-    max-width: 525px;
+    max-width: 600px;
     height: max-content;
     max-height: 95vh;
     background: var(--three);
@@ -32,7 +32,7 @@
     max-height: 100%;
     background: var(--three);
     overflow-y: scroll;
-    padding: 30px;
+    padding: 32.5px;
 }
 
 .content-popup .form .bar {
@@ -253,7 +253,7 @@
     max-height: 100%;
     background: var(--three);
     overflow-y: scroll;
-    padding: 30px;
+    padding: 32.5px;
     display: flex;
     flex-direction: column;
 }

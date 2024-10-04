@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/Landing.css';
 
 import Logo from '../image/logo.png';
-import { FaGlobe } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaGlobe } from 'react-icons/fa';
 
 import Popup from '../components/Popup';
 import { IoClose, IoLogoWhatsapp, IoMail, IoMailOutline, IoPersonOutline, IoPhonePortraitOutline, IoSchoolOutline } from 'react-icons/io5';
@@ -27,6 +27,8 @@ import brawlImage from '../image/brawl.png';
 import freefireImage from '../image/freefire.png';
 import csImage from '../image/cs.png';
 import clashroyaleImage from '../image/clashroyale.png';
+import { firestore } from '../firebase/login';
+import { coletarCalendario } from '../firebase/calendario';
 
 export default function Landing() {
 
@@ -234,6 +236,65 @@ export default function Landing() {
   useEffect(() => {
     setMdPopupAlert(true);
   }, []);
+ 
+
+
+  // Calendario
+  function getFirstDayOfMonth(year, month) {
+    const date = new Date(year, month - 1, 1);
+    return date.getDay();
+  }
+
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth();
+
+  const eventos = [
+    {
+        jogo: "Free Fire",
+        fase: "Quartas de Finais",
+        horario: "10h às 11h55",
+        resultado: null,
+        cor: "#002242"
+    },
+    {
+        jogo: "Minecraft",
+        fase: "Semi-Final",
+        horario: "10h às 11h55",
+        resultado: null,
+        cor: "#144774"
+    }
+  ];
+
+  const namesDays = [
+    'Domingo',
+    'Segunda',
+    'Terça',
+    'Quarta',
+    'Quinta',
+    'Sexta',
+    'Sabado',
+  ];
+
+  // Coletar Calendario
+  const [calendar, setCalendar] = useState([]);
+  const [calendarIndex, setCalendarIndex] = useState(month);
+  
+  useEffect(() => {
+    const consultarCalendario = async () => {
+        try {
+            const response = await coletarCalendario();
+            if (response.length > 0) {
+                setCalendar(response);
+            }
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
+    consultarCalendario();
+  }, []);
+
 
 
   return (
@@ -373,7 +434,7 @@ export default function Landing() {
                                         }
                                         return (
                                             <div key={j} className='coluna'>
-                                                <p>{obj[key]}</p>
+                                                <p className={j === 1 && 'nome'}>{obj[key]}</p>
                                             </div>
                                         )
                                     })}
@@ -396,10 +457,10 @@ export default function Landing() {
             </section>
 
             {/* Chaveamento do Brawl Stars */}
-            <section id='chaveamento' className='container-chaveamento'>
-                <div className='content-chaveamento'>
-                    {chaveamentos.length > 0 && (
-                        chaveamentos.map((val, index) => (
+            {chaveamentos.length > 0 && (
+                <section id='chaves' className='container-chaveamento'>
+                    <div className='content-chaveamento'>
+                        {chaveamentos.map((val, index) => (
                             <>
                                 <h1>Chaveamento do <strong>{val.game}</strong> do Ensino {val.ensino}</h1>
                                 <p>Acompanhe o chaveamento atualizado do <strong>{val.game}</strong> e veja quais equipes estão avançando nas rodadas.</p>
@@ -476,11 +537,157 @@ export default function Landing() {
                                     </div>
                                 </div>  
                             </>
-                        ))
+                        ))}
+
+                    </div>
+                </section>
+            )}
+            
+
+            {/* Calendario e Eventos */}
+            <section id='calendario' className="container-calendar">
+                <div className="content-calendar">
+                    <h1 className='titulo'>Calendário de <strong>Eventos</strong> do nosso <strong>Interclasse</strong> de {year}</h1>
+                    <p className='subtitulo'>Confira a programação atualizada em tempo real de todos os eventos mais esperados.</p>
+                    
+                    {calendar.length > 0 && (
+                        <>
+
+                            {/* Calendario */}
+                            {calendar.map((val, index) => {
+                                if (index === calendarIndex) {
+                                    return (
+                                        <div className="calendar">
+
+                                            <div className='title'>
+                                                <h1>Calendário: {val.mes} de {year}</h1>
+                                                <div className='btns'>
+                                                    <FaArrowLeft onClick={() => {
+                                                        if (calendarIndex-1 < 0) {
+                                                            setCalendarIndex(11);
+                                                        } else {
+                                                            setCalendarIndex(calendarIndex - 1);
+                                                        }
+                                                    }} className='seta' />
+                                                    <FaArrowRight onClick={() => {
+                                                        if (calendarIndex + 1 > 11) {
+                                                            setCalendarIndex(0);
+                                                        } else {
+                                                            setCalendarIndex(calendarIndex + 1);
+                                                        }
+                                                    }} className='seta' />
+                                                </div>
+                                            </div>
+
+                                            <div className='table'>
+
+                                                {namesDays.length > 0 && (
+                                                    namesDays.map((nameDay, i) => (
+                                                        <div className='day name-day'>
+                                                            <p>{nameDay}</p>
+                                                        </div>
+                                                    ))
+                                                )}
+
+                                                {/* Dias Vazios até chegar no inicio do mes */}
+                                                {Array.from({ length: val.firstDay }).map((_, idx) => (
+                                                    <div key={`empty-${idx}`} className='day empty'>
+                                                    </div>
+                                                ))}
+
+                                                {val.dias.length > 0 && (
+                                                    val.dias.map((dia, j) => {
+                                                        return (
+                                                            <div className='day'>
+                                                                {j+1}
+                                                                <div className='events'>
+                                                                    {dia.eventos.length > 0 && (
+                                                                        dia.eventos.map((evento, k) => {
+                                                                            if (evento.disponivel !== false && evento.disponivel !== null && evento.disponivel !== undefined) {
+                                                                                return (
+                                                                                    <p onClick={() => window.location.href = `/#evento#${j+1}#${k+1}`} key={k} style={{ background: evento.cor }}> {k+1} </p>
+                                                                                )
+                                                                            }
+                                                                        })
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                )}
+
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })}
+
+                            {/* Eventos */}
+                            {calendar.map((val, index) => {
+                                if (index === calendarIndex) {
+                                    return (
+                                        <div className="tags">
+
+                                            <div className='title'>
+                                                <h1>Eventos do mês de {val.mes} de {year}</h1>
+                                            </div>
+
+                                            <div className='events'>
+
+                                                {val.dias.length > 0 && (
+                                                    val.dias.map((dia, j) => {
+                                                        return (
+                                                            <div className='card'>
+                                                                <a>Dia {j+1} de {val.mes} de {year}</a>
+                                                                <div className='events'>
+                                                                    {dia.eventos.length > 0 ? (
+                                                                        dia.eventos.map((evento, k) => {
+                                                                            if (evento.disponivel !== false && evento.disponivel !== null && evento.disponivel !== undefined) {
+                                                                                return (
+                                                                                    <div id={`evento#${j+1}#${k+1}`} className='event' style={{ border: `3px solid ${evento.cor}`, '--evento-cor': evento.cor }} key={k}>
+                                                                                        <img src={evento.imagem} alt={evento.jogo} />
+                                                                                        <h1>{evento.fase} - {evento.jogo}</h1>
+                                                                                        <p>{evento.horario}</p>
+                                                                                        {evento.times.length > 0 && (
+                                                                                            <h2 className='times'>
+                                                                                                {evento.times.map((time, l) => (
+                                                                                                    <>
+                                                                                                        <span key={l}>{time}</span>
+                                                                                                        {l+1 !== evento.times.length && (
+                                                                                                            <span>x</span>
+                                                                                                        )}
+                                                                                                    </>
+                                                                                                ))}
+                                                                                            </h2>
+                                                                                        )}
+                                                                                        {evento.resultado && (
+                                                                                            <h2>{evento.resultado}</h2>
+                                                                                        )}
+                                                                                    </div>
+                                                                                )
+                                                                            }
+                                                                        })
+                                                                    ) : (
+                                                                        <h1 className='not-found'>Nenhum evento encontrado</h1>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                )}
+
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            })}
+
+                        </>
                     )}
+
+    
                 </div>
             </section>
-
 
 
 
@@ -544,6 +751,11 @@ export default function Landing() {
                     </div>
 
                     {/* Jogos */}
+                    <h2><strong>Calendário</strong> Adicionado</h2>
+                    <p>
+                    O desenvolvedor criou o calendário de eventos do interclasse {year}, clique nos três riscos na parte superior do site e depois em 'Calendário' para acessar essa nova feature :)
+                    </p>
+
                     <h2>Jogo Adicionado - <strong>Counter Strike</strong></h2>
                     <p>
                     O motivo da substituição do Roblox pelo Counter Strike é devido à natureza diversificada dos minigames presentes no Roblox, que frequentemente geram divergências entre os participantes. <br/><br/> 
@@ -563,7 +775,7 @@ export default function Landing() {
                     </p>
                 
                 
-                    <a>Atualizado: Dia 2 de Outubro de 2024</a>
+                    <a>Atualizado: Dia 4 de Outubro de 2024</a>
                 </div>
             </Popup>
         )}
