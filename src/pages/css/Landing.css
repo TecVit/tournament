@@ -33,7 +33,7 @@
 }
 
 .content-landing .text {
-    width: 92.5%;
+    width: 90%;
     max-width: 550px;
     height: auto;
     display: flex;
@@ -174,7 +174,7 @@
 
 
 .container-landing .content-games {
-    width: 92.5%;
+    width: 90%;
     max-width: 1111px;
     height: auto;
     display: flex;
@@ -334,7 +334,7 @@
 }
 
 .container-landing .content-ranking {
-    width: 92.5%;
+    width: 90%;
     max-width: 1111px;
     height: auto;
     display: flex;
@@ -467,7 +467,7 @@
 }
 
 .container-landing .content-chaveamento {
-    width: 92.5%;
+    width: 90%;
     max-width: 1111px;
     height: auto;
     display: flex;
