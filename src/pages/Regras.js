@@ -92,7 +92,7 @@ export default function Regras() {
                         <div dangerouslySetInnerHTML={{ __html: regras }} className='games' />
                     ) : !carregando && !regras ? (
                         <div className='games'>
-                            <h1>Nenhuma regra encontrada</h1>
+                            <h1 className='erro'>Nenhuma regra encontrada</h1>
                         </div>
                     ) : (
                         <></>
