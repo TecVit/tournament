@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // Pages
 import Landing from './pages/Landing';
 import Regras from './pages/Regras';
+import Alunos from './pages/admin/Alunos';
+
 
 // Erros
 import Error404 from './pages/errors/404';
@@ -16,30 +18,34 @@ const RouterApp = () => {
 
   // Dados
   const uidCookie = getCookie('uid') || '';
-  const nickCookie = getCookie('nick') || '';
   const emailCookie = getCookie('email') || '';
   
-  if (uidCookie && emailCookie && nickCookie) {
-    auth.onAuthStateChanged( async function(user) {
-      if (!user) {
-        await clearCookies();
-        localStorage.clear();
-        window.location.href = "/entrar";
-      } else {
-        if (emailCookie !== user.email || uidCookie !== user.uid || nickCookie !== user.displayName) {
+  useEffect(() => {
+    if (uidCookie && emailCookie) {
+      auth.onAuthStateChanged( async function(user) {
+        if (!user) {
           await clearCookies();
           localStorage.clear();
-          window.location.href = "/entrar";
+          window.location.href = "/";
+        } else {
+          if (emailCookie !== user.email || uidCookie !== user.uid) {
+            await clearCookies();
+            localStorage.clear();
+            window.location.href = "/";
+          }
         }
-      }
-    });
-  }
+      });
+    }
+  }, []);
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/regras/:game" element={<Regras />} />
+
+        {/* Admin */}
+        <Route path="/admin/alunos" element={<Alunos />} />
         
         <Route path="/*" element={<Error404 />} />
       </Routes>

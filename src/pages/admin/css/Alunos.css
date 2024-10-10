@@ -1,0 +1,82 @@
+.container-admin {
+    width: 100%;
+    height: 144vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Navbar Top */
+.navbar-top-admin {
+    width: 100%;
+    height: auto;
+    background: var(--four);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-top-admin .content {
+    width: 90%;
+    max-width: 1111px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-top-admin .content img {
+    width: 50px;
+    height: auto;
+    margin: 0px 0px 0px 10px;
+    cursor: pointer;
+}
+
+
+/* Navbar Bottom */
+.navbar-bottom-admin {
+    width: 100%;
+    height: auto;
+    background: var(--four);
+    position: sticky;
+    top: 0px;
+    border-bottom: 1px solid var(--two);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-bottom-admin .content {
+    width: 90%;
+    max-width: 1111px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 5px 0px;
+}
+
+.navbar-bottom-admin .content a {
+    font-size: 15px;
+    font-weight: 400;
+    padding: 8.5px 12px;
+    border-radius: 8px;
+    margin: 0px 12.5px 0px 0px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .1s ease-in-out;
+} .navbar-bottom-admin .content a:hover,
+  .navbar-bottom-admin .content a:focus {
+    background: var(--one);
+    color: var(--stoneEleven);
+}
+
+.navbar-bottom-admin .content a.atual {
+    color: var(--two);
+    font-weight: 500;
+} .navbar-bottom-admin .content a.atual:hover,
+  .navbar-bottom-admin .content a.atual:focus {
+    background: var(--one);
+    color: var(--stoneEleven);
+}

@@ -311,7 +311,7 @@ export default function Landing() {
                     <h1>Bem-Vindo ao nosso Interclasse de <strong>Games</strong></h1>
                     <p>As inscrições para o nosso interclasse de games estão oficialmente abertas! Junte-se a nós, forme sua equipe e prepare-se para competir nos jogos mais pedidos.</p>
                     <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Quero Participar</button>
-                    <button className='btn-secondary'>Assistir Ao Vivo</button>
+                    <button onClick={() => setMdPopupAlert(true)} className='btn-secondary'>Atualizações</button>
                 </div>
             </section>
 
@@ -749,9 +749,13 @@ export default function Landing() {
                     </div>
 
                     {/* Jogos */}
+
+                    <h2><strong>Datas</strong></h2>
+                    <p>As datas são oficiais. O Interclasse Gamer começará neste mês de outubro, no dia 11 (Sexta-Feira) e os jogos serão divididos por semanas, com partidas acontecendo a cada semana.</p>
+
                     <h2><strong>Calendário</strong> Adicionado</h2>
                     <p>
-                    O desenvolvedor criou o calendário de eventos do interclasse {year}, clique nos três riscos na parte superior do site e depois em 'Calendário' para acessar essa nova feature :)
+                    O Website agora possui o calendário de eventos do interclasse {year}, clique nos três riscos na parte superior do site e depois em 'Calendário' para acessar essa nova feature :)
                     </p>
 
                     <h2>Jogo Adicionado - <strong>Counter Strike</strong></h2>
@@ -760,13 +764,10 @@ export default function Landing() {
                     Em contrapartida, o Counter Strike é um jogo mais padronizado, o que facilita a organização. Além disso, por ser uma plataforma de jogo para computadores, oferece maior controle e acessibilidade para todos os envolvidos.
                     </p>
                     
-                    <h2>Chaveamento e Grupos</h2>
+                    <h2>Chaveamentos e Grupos</h2>
                     <p>O sorteio das chaves para as quartas de final dos jogos <strong>Free Fire</strong>, <strong>Counter Strike</strong> e <strong>Brawl Stars</strong> será realizado durante o intervalo, permitindo que todos os estudantes possam acompanhar e garantir que o processo seja conduzido de maneira legítima e transparente.</p>
 
-                    <h2>Datas</h2>
-                    <p>As datas serão divulgadas em breve. O Interclasse Gamer começará neste mês de outubro, e os jogos serão divididos por semanas, com partidas acontecendo a cada semana.</p>
-
-                    <h2>Critérios para participar</h2>
+                    <h2>Critérios para <strong>participar</strong></h2>
                     <p>
                     Os critérios para participação são: na semana de início do Interclasse, as partidas ocorrerão toda quinta e sexta-feira. Dentro dessa mesma semana, o competidor não poderá faltar mais de <strong>1 dia</strong>, a menos que apresente um atestado médico ou um motivo plausível.<br/><br/>
                     O foco é que os jogadores, a torcida e a turma se divirtam neste Interclasse e que tudo ocorra bem para que o evento possa acontecer mais vezes e em todos os anos. No entanto, há uma falta significativa de alunos na escola. Como iniciativa do <strong>Grêmio Estudantil</strong>, em parceria com a diretoria, criamos este Interclasse e estabelecemos esses critérios para incentivar a frequência dos alunos. Como recompensa, eles poderão participar dos treinamentos e dos jogos.

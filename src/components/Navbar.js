@@ -9,8 +9,14 @@ import { MdLockOutline } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { entrarAdmin, entrarComEmail, entrarComGoogle } from '../firebase/login';
 import { notifyError, notifySuccess } from '../toastifyServer';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const hash = location.hash;
+
   
   // Modais
   const [mdNavbar, setMdNavbar] = useState(false);
@@ -24,6 +30,7 @@ export default function Navbar() {
   const handleEntrar = async () => {
     setCarregando(true);
     try {
+
       if (carregando) {
         notifyError('Por favor, aguarde um momento');
         return;
@@ -41,7 +48,7 @@ export default function Navbar() {
       if (entrando === 'sucesso') {
         notifySuccess('Usuário logado com sucesso');
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/admin/alunos";
         }, 3750);
         return;
       } else if (entrando === 'email-invalido') {
@@ -69,10 +76,10 @@ export default function Navbar() {
     }
   }
 
-
   const entrarGoogle = async () => {
     setCarregando(true);
     try {
+
       if (carregando) {
         notifyError('Por favor, aguarde um momento');
         return;
@@ -82,7 +89,7 @@ export default function Navbar() {
       if (entrando === 'sucesso') {
         notifySuccess('Usuário logado com sucesso');
         setTimeout(() => {
-          window.location.href = "";
+          window.location.href = "/admin/alunos";
         }, 3750);
         return;
       } else if (entrando === 'email-invalido') {
