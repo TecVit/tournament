@@ -32,6 +32,8 @@ import { coletarCalendario } from '../firebase/calendario';
 
 export default function Landing() {
 
+  let inscricao = false;
+
   const navigate = useNavigate();
 
   /*const handleInputNumero = (telefone) => {
@@ -296,7 +298,6 @@ export default function Landing() {
   }, []);
 
 
-
   return (
     <>
         <main className='container-landing'>
@@ -309,9 +310,17 @@ export default function Landing() {
             <section className='content-landing'>
                 <div className='text'>
                     <h1>Bem-Vindo ao nosso Interclasse de <strong>Games</strong></h1>
-                    <p>As inscrições para o nosso interclasse de games estão oficialmente abertas! Junte-se a nós, forme sua equipe e prepare-se para competir nos jogos mais pedidos.</p>
-                    <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Quero Participar</button>
-                    <button onClick={() => setMdPopupAlert(true)} className='btn-secondary'>Atualizações</button>
+                    {inscricao ? (
+                        <>
+                        <p>As inscrições para o nosso interclasse de games foram finalizadas! Junte-se a nós, forme sua equipe e prepare-se para competir nos jogos mais pedidos.</p>
+                        <button onClick={() => window.location.href = "/#inscricoes"} className='btn-primary'>Quero Participar</button>
+                    </>
+                    ) : (
+                        <>
+                            <p>As inscrições para o nosso interclasse de games foram finalizadas! Mantenha-se atualizado dos resultados e partidas clicando no botão abaixo </p>
+                            <button onClick={() => setMdPopupAlert(true)} className='btn-secondary'>Atualizações</button>
+                        </>
+                    )}
                 </div>
             </section>
 
@@ -323,11 +332,11 @@ export default function Landing() {
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
-                            <p>Minecraft - dia X de outubro</p>
+                            <p>Minecraft - dia X de novembro</p>
                             <IoIosStar className='icon' />
                             <p>Interclasse</p>
                             <IoIosStar className='icon' />
-                            <p>Free Fire - dia X de outubro</p>
+                            <p>Free Fire - dia 11 de outubro</p>
                         </div>
                     ))}
                 </div>
@@ -343,11 +352,13 @@ export default function Landing() {
                                         <p>{val.description}</p>
                                         <div className='linha'></div>
                                         <div className="flex">
-                                            <button onClick={() => {
-                                                setMdPopup(true);
-                                                setInputGame(val.name);
-                                                setInfoInterclasse(val);
-                                            }}>Inscrever-se</button>
+                                            {inscricao && (
+                                                <button onClick={() => {
+                                                    setMdPopup(true);
+                                                    setInputGame(val.name);
+                                                    setInfoInterclasse(val);
+                                                }}>Inscrever-se</button>
+                                            )}
                                             <button onClick={() => window.location.href = `/regras/${formatarNome(val.name)}`}>Regras</button>
                                             <FaGlobe onClick={() => window.open(val.link)} className='icon' />
                                         </div>
