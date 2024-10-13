@@ -318,9 +318,9 @@ export default function Landing() {
                     ) : (
                         <>
                             <p>As inscrições para o nosso interclasse de games foram finalizadas! Mantenha-se atualizado dos resultados e partidas clicando no botão abaixo </p>
-                            <button onClick={() => setMdPopupAlert(true)} className='btn-secondary'>Atualizações</button>
                         </>
-                    )}
+                    )}  
+                    <button onClick={() => setMdPopupAlert(true)} className='btn-secondary'>Atualizações</button>    
                 </div>
             </section>
 
