@@ -32,7 +32,7 @@ import { coletarCalendario } from '../firebase/calendario';
 
 export default function Landing() {
 
-  let inscricao = false;
+  let inscricao = true;
 
   const navigate = useNavigate();
 
