@@ -391,7 +391,7 @@ export default function Landing() {
                                         if (j === 0 && obj[key] === null) {
                                             return (
                                                 <div key={j} className='coluna'>
-                                                    <p>{i+1}</p>
+                                                    <p>{Math.max(0, paginaTurmas - 1) * 8 + i + 1}</p>
                                                 </div>
                                             )
                                         }
@@ -439,7 +439,7 @@ export default function Landing() {
                                         if (j === 0 && obj[key] === null) {
                                             return (
                                                 <div key={j} className='coluna'>
-                                                    <p>{i+1}</p>
+                                                    <p>{Math.max(0, paginaAlunos - 1) * 8 + i + 1}</p>
                                                 </div>
                                             )
                                         }

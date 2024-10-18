@@ -39,6 +39,7 @@ const coletarRankings = async () => {
             if (validando.every((val) => val === true)) {
                 rankingAlunosList = rankingAlunosList.sort((a, b) => b[5] - a[5]);
                 rankingTurmasList = rankingTurmasList.sort((a, b) => b[5] - a[5]);
+
                 return { rankingTurmasList, rankingAlunosList };
             }
         }
